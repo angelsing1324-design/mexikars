@@ -18,14 +18,14 @@
 
     /* ── TOKENS ── */
     :root {
-      --green:       #1A4A2A;
-      --green-mid:   #235E36;
-      --green-light: #e8f4ec;
-      --red:         #CC0000;
-      --black:       #0D0D0D;
-      --gray:        #6B7280;
-      --gray-light:  #F3F4F6;
-      --border:      #E5E7EB;
+      --gold:        #C9A85C;
+      --gold-mid:    #B5923D;
+      --gold-light:  #F5EDD6;
+      --cream:       #FAF8F4;
+      --black:       #1A1814;
+      --gray:        #7C7868;
+      --gray-light:  #F0EDE6;
+      --border:      #E8E4DA;
       --white:       #FFFFFF;
       --max:         1200px;
       --radius:      14px;
@@ -68,7 +68,7 @@
       font-size: 20px; font-weight: 900; letter-spacing: -.03em;
       color: var(--black);
     }
-    .nav-logo-name span { color: var(--green); }
+    .nav-logo-name span { color: var(--gold); }
     .nav-logo-tag { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--gray); font-weight: 600; margin-top: 2px; }
     .nav-links {
       display: flex; align-items: center; gap: 2px; list-style: none;
@@ -103,7 +103,7 @@
     .hamburger span { display: block; width: 22px; height: 2px; background: var(--black); border-radius: 2px; transition: .25s; }
     .mobile-menu {
       position: fixed; inset: 0; z-index: 9500;
-      background: #070f09;
+      background: #141210;
       display: flex; flex-direction: column;
       padding: 100px 28px 32px;
       overflow-y: auto;
@@ -184,7 +184,7 @@
       position: absolute; top: -120px; right: -120px;
       width: 600px; height: 600px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(26,74,42,.07) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(201,168,92,.07) 0%, transparent 70%);
       pointer-events: none;
     }
     .hero-grid {
@@ -197,18 +197,18 @@
     .hero-left { position: relative; z-index: 1; }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 8px;
-      background: var(--green-light);
-      border: 1px solid rgba(26,74,42,.2);
+      background: var(--gold-light);
+      border: 1px solid rgba(201,168,92,.25);
       border-radius: 100px;
       padding: 6px 16px 6px 8px;
       font-size: 12px; font-weight: 700;
-      color: var(--green); letter-spacing: .04em;
+      color: var(--gold); letter-spacing: .04em;
       text-transform: uppercase;
       margin-bottom: 28px;
     }
     .badge-dot {
       width: 8px; height: 8px; border-radius: 50%;
-      background: var(--green); animation: pulse 2s infinite;
+      background: var(--gold); animation: pulse 2s infinite;
     }
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.5)} }
     .hero-title {
@@ -218,7 +218,7 @@
       color: var(--black);
       margin-bottom: 24px;
     }
-    .hero-title .green { color: var(--green); }
+    .hero-title .green { color: var(--gold); }
     .typewriter-cursor { animation: blink 1s step-end infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
     .hero-sub {
@@ -261,10 +261,10 @@
       margin-left: -9px; color: #fff;
     }
     .trust-avatars span:first-child { margin-left: 0; }
-    .av1 { background: linear-gradient(135deg,#1A4A2A,#2D6E40); }
-    .av2 { background: linear-gradient(135deg,#2D6E40,#48A165); }
-    .av3 { background: linear-gradient(135deg,#CC0000,#E53030); }
-    .av4 { background: linear-gradient(135deg,#222,#555); }
+    .av1 { background: linear-gradient(135deg,#1A1814,#3D3628); }
+    .av2 { background: linear-gradient(135deg,#C9A85C,#B5923D); }
+    .av3 { background: linear-gradient(135deg,#8C6E30,#C9A85C); }
+    .av4 { background: linear-gradient(135deg,#3D3628,#6B5C40); }
     .trust-text { font-size: 13px; color: var(--gray); line-height: 1.5; }
     .trust-text strong { color: var(--black); font-weight: 700; display: block; }
 
@@ -324,7 +324,7 @@
       letter-spacing: 0.5px;
       white-space: nowrap;
     }
-    .ac-badge.sold { background: #dcfce7; color: #166534; }
+    .ac-badge.sold { background: #F5EDD6; color: #8C6E30; }
     .ac-badge.enruta { background: #dbeafe; color: #1e40af; }
 
     .ac-info { flex: 1; }
@@ -350,7 +350,7 @@
       position: absolute; bottom: -20px; right: -20px;
       width: 100%; height: 80%;
       border-radius: 24px;
-      background: var(--green-light);
+      background: var(--gold-light);
       z-index: -1;
     }
 
@@ -401,6 +401,11 @@
       filter: grayscale(100%); opacity: 0.35;
       display: block; flex-shrink: 0;
     }
+    .logo-pill {
+      font-size: 13px; font-weight: 800; letter-spacing: .06em;
+      color: #9C8A6A; opacity: 0.55; white-space: nowrap;
+      text-transform: uppercase;
+    }
     @keyframes logos-scroll {
       0%{ transform: translateX(0); } 100%{ transform: translateX(-50%); }
     }
@@ -419,9 +424,10 @@
 
     /* ── STATS BAR ── */
     #stats {
-      background: var(--green);
+      background: var(--black);
       padding: 52px 0;
     }
+    .stat-num { color: var(--gold) !important; }
     .stats-grid {
       display: grid; grid-template-columns: repeat(4,1fr);
     }
@@ -448,7 +454,7 @@
     .section-label {
       display: inline-block; font-size: 11px; font-weight: 800;
       letter-spacing: .12em; text-transform: uppercase;
-      color: var(--green); margin-bottom: 14px;
+      color: var(--gold); margin-bottom: 14px;
     }
     .section-title {
       font-size: clamp(28px,3.5vw,44px); font-weight: 900;
@@ -475,7 +481,7 @@
       position: absolute; top: 44px;
       left: calc(16.66% + 14px); right: calc(16.66% + 14px);
       height: 2px;
-      background: linear-gradient(90deg, var(--green) 0%, rgba(26,74,42,.15) 100%);
+      background: linear-gradient(90deg, var(--gold) 0%, rgba(26,74,42,.15) 100%);
     }
     .step-card {
       background: var(--gray-light);
@@ -487,7 +493,7 @@
       transition: border-color .25s, transform .25s, box-shadow .25s, background .25s;
     }
     .step-card:hover {
-      border-color: var(--green);
+      border-color: var(--gold);
       transform: translateY(-6px);
       box-shadow: 0 20px 48px rgba(26,74,42,.1);
       background: #fff;
@@ -495,7 +501,7 @@
     .step-num {
       position: absolute; top: -16px; left: 50%; transform: translateX(-50%);
       width: 32px; height: 32px; border-radius: 50%;
-      background: var(--green); color: #fff;
+      background: var(--gold); color: #fff;
       font-size: 13px; font-weight: 800;
       display: flex; align-items: center; justify-content: center;
       box-shadow: 0 4px 12px rgba(26,74,42,.35);
@@ -517,7 +523,7 @@
     .why-img-wrap img { width: 100%; height: 500px; object-fit: cover; }
     .why-img-badge {
       position: absolute; bottom: 24px; left: 24px;
-      background: var(--green); color: #fff;
+      background: var(--gold); color: #fff;
       border-radius: 12px; padding: 14px 20px;
       font-size: 13px; font-weight: 700; line-height: 1.4;
     }
@@ -532,13 +538,13 @@
       transition: border-color .2s, transform .2s, box-shadow .2s;
     }
     .why-card:hover {
-      border-color: var(--green);
+      border-color: var(--gold);
       transform: translateX(4px);
       box-shadow: 0 8px 24px rgba(26,74,42,.08);
     }
     .why-icon {
       width: 46px; height: 46px; min-width: 46px;
-      border-radius: 10px; background: var(--green-light);
+      border-radius: 10px; background: var(--gold-light);
       border: 1px solid rgba(26,74,42,.15);
       display: flex; align-items: center; justify-content: center;
       font-size: 20px;
@@ -551,7 +557,7 @@
     .calc-left { padding-top: 16px; }
     .calc-how { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-top: 32px; }
     .calc-how-title { font-weight: 700; font-size: 15px; margin-bottom: 12px; display:flex; align-items:center; gap:8px; }
-    .calc-how-title::before { content:'ⓘ'; color:var(--green); }
+    .calc-how-title::before { content:'ⓘ'; color:var(--gold); }
     .calc-steps { padding-left: 20px; display: flex; flex-direction: column; gap: 10px; }
     .calc-steps li { font-size: 14px; color: var(--gray); line-height: 1.5; }
     .calc-card { background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 24px; box-shadow: 0 4px 24px rgba(0,0,0,.06); }
@@ -559,27 +565,27 @@
     .calc-currency-label { font-size: 11px; font-weight: 700; color: var(--gray); letter-spacing: .08em; text-transform: uppercase; }
     .calc-currency-toggle { display: flex; background: var(--gray-light); border-radius: 8px; padding: 3px; }
     .calc-cur-btn { padding: 6px 14px; border: none; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer; background: transparent; color: var(--gray); transition: .2s; }
-    .calc-cur-btn.active { background: var(--green); color: #fff; }
+    .calc-cur-btn.active { background: var(--gold); color: #fff; }
     .calc-tc-wrap { display: flex; align-items: center; gap: 6px; background: var(--gray-light); border-radius: 8px; padding: 6px 12px; margin-left: auto; font-size: 13px; font-weight: 600; }
     .calc-tc-wrap input { width: 52px; border: none; background: transparent; font-size: 14px; font-weight: 700; text-align: right; outline: none; }
     .calc-tc-label { color: var(--gray); font-size: 11px; }
     .calc-field { display: flex; flex-direction: column; gap: 8px; }
     .calc-label { font-size: 11px; font-weight: 700; color: var(--gray); letter-spacing: .1em; text-transform: uppercase; }
     .calc-select { width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 14px; font-family: inherit; cursor: pointer; outline: none; background: #fff; }
-    .calc-select:focus { border-color: var(--green); }
+    .calc-select:focus { border-color: var(--gold); }
     .calc-price-input { display: flex; align-items: center; gap: 10px; border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 16px; transition: border-color .2s; }
-    .calc-price-input:focus-within { border-color: var(--green); }
+    .calc-price-input:focus-within { border-color: var(--gold); }
     .calc-dollar { font-size: 22px; font-weight: 700; }
     .calc-price-field { border: none; outline: none; font-size: 28px; font-weight: 800; width: 100%; font-family: inherit; color: var(--black); }
     .calc-hint { font-size: 12px; color: var(--gray); }
     .calc-regimen { display: flex; gap: 8px; background: var(--gray-light); border-radius: 10px; padding: 4px; }
     .calc-reg-btn { flex: 1; padding: 10px 8px; border: none; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; background: transparent; color: var(--gray); transition: .2s; }
-    .calc-reg-btn.active { background: #fff; color: var(--green); box-shadow: 0 2px 8px rgba(0,0,0,.08); }
-    .calc-result { background: var(--green); border-radius: 16px; padding: 24px; color: #fff; display: flex; flex-direction: column; gap: 10px; }
+    .calc-reg-btn.active { background: #fff; color: var(--gold); box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    .calc-result { background: var(--gold); border-radius: 16px; padding: 24px; color: #fff; display: flex; flex-direction: column; gap: 10px; }
     .calc-result-label { font-size: 13px; color: rgba(255,255,255,.7); font-weight: 500; }
     .calc-result-total { font-size: 38px; font-weight: 900; letter-spacing: -.02em; line-height: 1; }
     .calc-result-equiv { font-size: 14px; color: rgba(255,255,255,.7); }
-    .calc-wa-btn { display: flex; align-items: center; justify-content: center; gap: 10px; background: #fff; color: var(--green); font-weight: 800; font-size: 15px; padding: 14px; border-radius: 10px; text-decoration: none; transition: opacity .2s; margin-top: 4px; }
+    .calc-wa-btn { display: flex; align-items: center; justify-content: center; gap: 10px; background: #fff; color: var(--gold); font-weight: 800; font-size: 15px; padding: 14px; border-radius: 10px; text-decoration: none; transition: opacity .2s; margin-top: 4px; }
     .calc-wa-btn:hover { opacity: .9; }
     .calc-aviso { font-size: 11px; color: rgba(255,255,255,.6); line-height: 1.5; }
 
@@ -591,7 +597,7 @@
       padding: 28px; border: 1.5px solid transparent;
       transition: border-color .2s, transform .2s;
     }
-    .testi-card:hover { border-color: var(--green); transform: translateY(-4px); }
+    .testi-card:hover { border-color: var(--gold); transform: translateY(-4px); }
     .testi-stars { color: #F59E0B; font-size: 14px; margin-bottom: 14px; letter-spacing: 2px; }
     .testi-text { font-size: 14px; color: #374151; line-height: 1.75; margin-bottom: 20px; font-style: italic; }
     .testi-author { display: flex; align-items: center; gap: 12px; }
@@ -605,7 +611,7 @@
 
     /* ── CTA FINAL ── */
     #cta {
-      background: var(--green);
+      background: var(--gold);
       padding: 100px 0;
       text-align: center;
       position: relative; overflow: hidden;
@@ -626,7 +632,7 @@
     .cta-title span { opacity: .7; }
     .btn-wa-lg {
       display: inline-flex; align-items: center; gap: 12px;
-      background: #fff; color: var(--green);
+      background: #fff; color: var(--gold);
       font-size: 17px; font-weight: 800;
       padding: 18px 40px; border-radius: 12px;
       transition: transform .15s, box-shadow .15s;
@@ -647,7 +653,7 @@
       font-size: 20px; font-weight: 900; color: #fff;
       letter-spacing: -.02em; margin-bottom: 8px;
     }
-    .footer-brand-name span { color: var(--green-mid) }
+    .footer-brand-name span { color: var(--gold-mid) }
     .footer-tagline { font-size: 13px; color: rgba(255,255,255,.4); line-height: 1.65; margin-bottom: 20px; }
     .footer-social { display: flex; gap: 10px; }
     .soc-icon {
@@ -714,7 +720,7 @@
       .section { padding: 68px 0; }
 
       /* Hero mobile */
-      #hero { padding: 72px 0 36px; background: #0b1e10; display: block !important; min-height: unset !important; overflow: hidden !important; align-items: unset !important; width: 100vw !important; box-sizing: border-box !important; }
+      #hero { padding: 72px 0 36px; background: #FAF8F4; display: block !important; min-height: unset !important; overflow: hidden !important; align-items: unset !important; width: 100vw !important; box-sizing: border-box !important; }
       .hero-grid { grid-template-columns: 1fr; gap: 0; }
       .hero-right { order: -1; margin-bottom: 24px; }
       .hero-img-wrap img { height: 185px; border-radius: 14px; }
@@ -889,14 +895,14 @@
         <!-- Logo strip -->
         <div class="hero-logos-strip">
           <div class="hero-logos-inner">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Copart_logo.svg/1200px-Copart_logo.svg.png" alt="Copart">
-            <img src="https://images.seeklogo.com/logo-png/44/2/iaa-insurance-auto-auctions-inc-logo-png_seeklogo-443594.png" alt="IAAI" style="height:36px">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/YouTube_logo_%282017%29.png" alt="YouTube" style="height:16px">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/TikTok_logo.svg/1280px-TikTok_logo.svg.png" alt="TikTok">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Copart_logo.svg/1200px-Copart_logo.svg.png" alt="Copart">
-            <img src="https://images.seeklogo.com/logo-png/44/2/iaa-insurance-auto-auctions-inc-logo-png_seeklogo-443594.png" alt="IAAI" style="height:36px">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/YouTube_logo_%282017%29.png" alt="YouTube" style="height:16px">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/TikTok_logo.svg/1280px-TikTok_logo.svg.png" alt="TikTok">
+            <span class="logo-pill">COPART</span>
+            <span class="logo-pill">IAAI</span>
+            <span class="logo-pill">YouTube</span>
+            <span class="logo-pill">TikTok</span>
+            <span class="logo-pill">COPART</span>
+            <span class="logo-pill">IAAI</span>
+            <span class="logo-pill">YouTube</span>
+            <span class="logo-pill">TikTok</span>
           </div>
         </div>
         <div class="hero-actions">
@@ -1171,7 +1177,7 @@
         <div class="calc-field">
           <label class="calc-label">PRECIO SUBASTA (USD)</label>
           <div class="calc-price-input">
-            <span class="calc-dollar" style="color:var(--green);">$</span>
+            <span class="calc-dollar" style="color:var(--gold);">$</span>
             <input type="number" id="calc-precio" placeholder="0" min="0" oninput="calcular()" class="calc-price-field" />
           </div>
           <p class="calc-hint">Ingresa el valor del lote en subasta.</p>
