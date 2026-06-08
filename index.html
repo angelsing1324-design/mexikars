@@ -343,6 +343,43 @@
     .why-text h3 { font-size: 15px; font-weight: 800; color: var(--black); margin-bottom: 5px; }
     .why-text p { font-size: 13px; color: var(--gray); line-height: 1.65; }
 
+    /* ── CALCULADORA ── */
+    .calc-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .calc-left { padding-top: 16px; }
+    .calc-how { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-top: 32px; }
+    .calc-how-title { font-weight: 700; font-size: 15px; margin-bottom: 12px; display:flex; align-items:center; gap:8px; }
+    .calc-how-title::before { content:'ⓘ'; color:var(--green); }
+    .calc-steps { padding-left: 20px; display: flex; flex-direction: column; gap: 10px; }
+    .calc-steps li { font-size: 14px; color: var(--gray); line-height: 1.5; }
+    .calc-card { background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 24px; box-shadow: 0 4px 24px rgba(0,0,0,.06); }
+    .calc-currency-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .calc-currency-label { font-size: 11px; font-weight: 700; color: var(--gray); letter-spacing: .08em; text-transform: uppercase; }
+    .calc-currency-toggle { display: flex; background: var(--gray-light); border-radius: 8px; padding: 3px; }
+    .calc-cur-btn { padding: 6px 14px; border: none; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer; background: transparent; color: var(--gray); transition: .2s; }
+    .calc-cur-btn.active { background: var(--green); color: #fff; }
+    .calc-tc-wrap { display: flex; align-items: center; gap: 6px; background: var(--gray-light); border-radius: 8px; padding: 6px 12px; margin-left: auto; font-size: 13px; font-weight: 600; }
+    .calc-tc-wrap input { width: 52px; border: none; background: transparent; font-size: 14px; font-weight: 700; text-align: right; outline: none; }
+    .calc-tc-label { color: var(--gray); font-size: 11px; }
+    .calc-field { display: flex; flex-direction: column; gap: 8px; }
+    .calc-label { font-size: 11px; font-weight: 700; color: var(--gray); letter-spacing: .1em; text-transform: uppercase; }
+    .calc-select { width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 14px; font-family: inherit; cursor: pointer; outline: none; background: #fff; }
+    .calc-select:focus { border-color: var(--green); }
+    .calc-price-input { display: flex; align-items: center; gap: 10px; border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 16px; transition: border-color .2s; }
+    .calc-price-input:focus-within { border-color: var(--green); }
+    .calc-dollar { font-size: 22px; font-weight: 700; }
+    .calc-price-field { border: none; outline: none; font-size: 28px; font-weight: 800; width: 100%; font-family: inherit; color: var(--black); }
+    .calc-hint { font-size: 12px; color: var(--gray); }
+    .calc-regimen { display: flex; gap: 8px; background: var(--gray-light); border-radius: 10px; padding: 4px; }
+    .calc-reg-btn { flex: 1; padding: 10px 8px; border: none; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; background: transparent; color: var(--gray); transition: .2s; }
+    .calc-reg-btn.active { background: #fff; color: var(--green); box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    .calc-result { background: var(--green); border-radius: 16px; padding: 24px; color: #fff; display: flex; flex-direction: column; gap: 10px; }
+    .calc-result-label { font-size: 13px; color: rgba(255,255,255,.7); font-weight: 500; }
+    .calc-result-total { font-size: 38px; font-weight: 900; letter-spacing: -.02em; line-height: 1; }
+    .calc-result-equiv { font-size: 14px; color: rgba(255,255,255,.7); }
+    .calc-wa-btn { display: flex; align-items: center; justify-content: center; gap: 10px; background: #fff; color: var(--green); font-weight: 800; font-size: 15px; padding: 14px; border-radius: 10px; text-decoration: none; transition: opacity .2s; margin-top: 4px; }
+    .calc-wa-btn:hover { opacity: .9; }
+    .calc-aviso { font-size: 11px; color: rgba(255,255,255,.6); line-height: 1.5; }
+
     /* ── TESTIMONIOS ── */
     #testimonios { background: #fff; }
     .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
@@ -467,6 +504,7 @@
       .why-img-wrap { display: block; }
       .why-img-wrap img { height: 260px; }
       .testi-grid { grid-template-columns: 1fr; }
+      .calc-layout { grid-template-columns: 1fr; gap: 32px; } .calc-result-total { font-size: 28px; }
       .partners-logos { gap: 32px; } .partner-logo-img { height: 28px; }
     }
     @media (max-width: 640px) {
@@ -507,6 +545,7 @@
       <ul class="nav-links">
         <li><a href="#proceso">Cómo funciona</a></li>
         <li><a href="#porque">Nosotros</a></li>
+        <li><a href="#calculadora">Calculadora</a></li>
         <li><a href="#testimonios">Testimonios</a></li>
         <li><a href="#cta">Contacto</a></li>
       </ul>
@@ -525,6 +564,7 @@
   <div class="mobile-menu" id="mobileMenu">
     <a href="#proceso" class="mm-link">Cómo funciona</a>
     <a href="#porque" class="mm-link">Nosotros</a>
+    <a href="#calculadora" class="mm-link">Calculadora</a>
     <a href="#testimonios" class="mm-link">Testimonios</a>
     <div class="mm-btns">
       <a href="https://wa.me/523318041482" target="_blank" class="btn-wa btn-full mm-link" style="text-align:center;justify-content:center;">💬 Hablar por WhatsApp</a>
@@ -717,6 +757,101 @@
               <p>Un asesor real — no un bot — te acompaña desde que eliges tu auto hasta que lo tienes en tus manos.</p>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CALCULADORA ══════ -->
+<section id="calculadora" class="section" style="background:#f8faf8; overflow:hidden; position:relative;">
+  <div class="container">
+    <div class="calc-layout">
+      <!-- Columna izquierda -->
+      <div class="calc-left">
+        <div class="section-label">Calculadora Inteligente</div>
+        <h2 class="section-title">Transparencia Financiera<br><span style="color:#9ca3af;">Sin Sorpresas.</span></h2>
+        <p class="section-sub">Visualiza el costo real de tu vehículo puesto en México. Ajusta el tipo de cambio y ve el total en tu moneda preferida.</p>
+        <div class="calc-how">
+          <p class="calc-how-title">¿Cómo usar la calculadora?</p>
+          <ol class="calc-steps">
+            <li>Elige tu moneda y ajusta el tipo de cambio.</li>
+            <li>Selecciona un auto del catálogo o ingresa el precio manualmente.</li>
+            <li>El total incluye precio del auto, logística, importación y honorarios.</li>
+          </ol>
+        </div>
+      </div>
+      <!-- Columna derecha: calculadora -->
+      <div class="calc-card">
+        <!-- Moneda y TC -->
+        <div class="calc-currency-row">
+          <div class="calc-currency-label">¿Cómo pagarás?</div>
+          <div class="calc-currency-toggle">
+            <button id="btn-mxn" class="calc-cur-btn active" onclick="setCurrency('MXN')">MXN</button>
+            <button id="btn-usd" class="calc-cur-btn" onclick="setCurrency('USD')">USD</button>
+          </div>
+          <div class="calc-tc-wrap">
+            <span>$</span>
+            <input type="number" id="calc-tc" value="18.3" step="0.1" min="1" oninput="calcular()" />
+            <span class="calc-tc-label">MXN</span>
+          </div>
+        </div>
+        <!-- Catálogo -->
+        <div class="calc-field">
+          <label class="calc-label">🚗 SELECCIONA TU AUTO</label>
+          <select id="calc-catalogo" onchange="selectCatalog()" class="calc-select">
+            <option value="">-- Buscar en catálogo popular --</option>
+            <option value="8500">Ford F-150 XLT (2018-2020)</option>
+            <option value="24000">Ford F-150 Raptor (2016-2017)</option>
+            <option value="12000">Ford Mustang V8 GT (2017-2019)</option>
+            <option value="18000">Chevrolet Camaro V8 SS (2017-2019)</option>
+            <option value="35000">Chevrolet Camaro ZL1 (2017-2019)</option>
+            <option value="9000">Chevrolet Silverado (2017-2019)</option>
+            <option value="9500">Chevrolet Colorado (2018-2020)</option>
+            <option value="9000">GMC Sierra (2017-2019)</option>
+            <option value="55000">Chevrolet Corvette Stingray (2015-2018)</option>
+            <option value="28000">Cadillac CTS-V (2016-2018)</option>
+            <option value="25000">Dodge Challenger V8 Scatpack (2016-2018)</option>
+            <option value="38000">Dodge Challenger V8 Hellcat (2016-2018)</option>
+            <option value="12000">Jeep Wrangler Unlimited Sport (2018-2020)</option>
+            <option value="18000">Jeep Wrangler Rubicon (2018-2020)</option>
+            <option value="15000">Jeep Wrangler Sahara (2018-2020)</option>
+            <option value="14000">Jeep Grand Cherokee (2018-2020)</option>
+            <option value="10000">Honda Pilot (2018-2020)</option>
+            <option value="22000">Tesla Model 3 (2020-2022)</option>
+            <option value="28000">Tesla Model Y (2021-2022)</option>
+            <option value="35000">Tesla Model S (2019-2021)</option>
+            <option value="45000">Tesla Model X (2019-2021)</option>
+          </select>
+        </div>
+        <!-- Precio manual -->
+        <div class="calc-field">
+          <label class="calc-label">PRECIO SUBASTA (USD)</label>
+          <div class="calc-price-input">
+            <span class="calc-dollar" style="color:var(--green);">$</span>
+            <input type="number" id="calc-precio" placeholder="0" min="0" oninput="calcular()" class="calc-price-field" />
+          </div>
+          <p class="calc-hint">Ingresa el valor del lote en subasta.</p>
+        </div>
+        <!-- Régimen -->
+        <div class="calc-field">
+          <label class="calc-label">RÉGIMEN DE IMPORTACIÓN</label>
+          <div class="calc-regimen">
+            <button class="calc-reg-btn active" onclick="setRegimen('nacional', this)">Nacional</button>
+            <button class="calc-reg-btn" onclick="setRegimen('fronterizo', this)">Fronterizo</button>
+            <button class="calc-reg-btn" onclick="setRegimen('electrico', this)">Eléctrico</button>
+          </div>
+        </div>
+        <!-- Resultado -->
+        <div class="calc-result">
+          <div class="calc-result-label">Estimado Total</div>
+          <div class="calc-result-total" id="calc-total">$0</div>
+          <div class="calc-result-equiv" id="calc-equiv"></div>
+          <a href="https://wa.me/523318041482" target="_blank" class="calc-wa-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Cotizar en WhatsApp
+          </a>
+          <p class="calc-aviso" id="calc-aviso">Ingresa un precio para ver el estimado.</p>
         </div>
       </div>
     </div>
@@ -921,6 +1056,70 @@
     }
   }
   type();
+
+  /* Calculadora */
+  let calcMoneda = 'MXN';
+  let calcRegimen = 'nacional';
+
+  function setCurrency(m) {
+    calcMoneda = m;
+    document.getElementById('btn-mxn').classList.toggle('active', m === 'MXN');
+    document.getElementById('btn-usd').classList.toggle('active', m === 'USD');
+    calcular();
+  }
+
+  function setRegimen(r, btn) {
+    calcRegimen = r;
+    document.querySelectorAll('.calc-reg-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    calcular();
+  }
+
+  function selectCatalog() {
+    const val = document.getElementById('calc-catalogo').value;
+    if (val) {
+      const nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+      const input = document.getElementById('calc-precio');
+      nativeSetter.call(input, val);
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+    calcular();
+  }
+
+  function calcular() {
+    const precio = parseFloat(document.getElementById('calc-precio').value) || 0;
+    const tc = parseFloat(document.getElementById('calc-tc').value) || 18.3;
+
+    if (precio === 0) {
+      document.getElementById('calc-total').textContent = '$0';
+      document.getElementById('calc-equiv').textContent = '';
+      document.getElementById('calc-aviso').textContent = 'Ingresa un precio para ver el estimado.';
+      return;
+    }
+
+    let totalUSD;
+    if (calcRegimen === 'nacional') {
+      totalUSD = precio * 1.2514 + 4371;
+    } else if (calcRegimen === 'fronterizo') {
+      totalUSD = precio * 1.2514 + 3333;
+    } else {
+      totalUSD = precio * 1.2568 + 7432;
+    }
+
+    const totalMXN = totalUSD * tc;
+
+    const fmt = (n, dec=0) => '$' + n.toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    if (calcMoneda === 'MXN') {
+      document.getElementById('calc-total').textContent = fmt(totalMXN) + ' MXN';
+      document.getElementById('calc-equiv').textContent = '\u2248 ' + fmt(totalUSD) + ' USD';
+    } else {
+      document.getElementById('calc-total').textContent = fmt(totalUSD) + ' USD';
+      document.getElementById('calc-equiv').textContent = '\u2248 ' + fmt(totalMXN) + ' MXN';
+    }
+
+    document.getElementById('calc-aviso').textContent = 'Aviso: El cálculo es una estimación basada en el T.C. de $' + tc + '. Incluye logística, importación, reparaciones estimadas y honorarios por servicio.';
+  }
 </script>
 </body>
 </html>
