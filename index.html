@@ -206,6 +206,53 @@
       animation: floatY 4s ease-in-out infinite .8s;
     }
     @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+    /* ── Activity Cards ── */
+    .activity-card {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      border-radius: 14px;
+      padding: 10px 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      z-index: 10;
+      min-width: 220px;
+      animation: floatCard 3s ease-in-out infinite;
+    }
+    .ac-top { top: 18px; left: -30px; }
+    .ac-bottom { bottom: 24px; right: -20px; animation-delay: 1.5s; }
+
+    .ac-badge {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+    .ac-badge.sold { background: #dcfce7; color: #166534; }
+    .ac-badge.enruta { background: #dbeafe; color: #1e40af; }
+
+    .ac-info { flex: 1; }
+    .ac-title { font-size: 12px; font-weight: 700; color: #111; }
+    .ac-sub { font-size: 11px; color: #666; margin-top: 1px; }
+
+    .ac-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 3px rgba(34,197,94,0.25);
+      animation: pulse 1.5s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(34,197,94,0.25); }
+      50% { box-shadow: 0 0 0 6px rgba(34,197,94,0.1); }
+    }
+    @keyframes floatCard { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
     /* green accent bar behind image */
     .hero-img-bg {
       position: absolute; bottom: -20px; right: -20px;
@@ -493,8 +540,8 @@
       .hero-grid { grid-template-columns: 1fr; }
       .hero-right { display: block; margin-top: 32px; }
       .hero-img-wrap img { height: 260px; }
-      .fc-top { left: 12px; top: 12px; }
-      .fc-bottom { right: 12px; bottom: 12px; }
+      .ac-top { left: 12px; top: 12px; }
+      .ac-bottom { right: 12px; bottom: 12px; }
       .stats-grid { grid-template-columns: repeat(2,1fr); }
       .stat-item:nth-child(2) { border-right: none; }
       .stat-item:nth-child(3) { border-top: 1px solid rgba(255,255,255,.15); border-right: 1px solid rgba(255,255,255,.15); }
@@ -514,7 +561,7 @@
       .hero-actions { flex-direction: column; }
       .hero-actions .btn-wa, .hero-actions .btn-outline-dark { width: 100%; justify-content: center; }
       .footer-top { grid-template-columns: 1fr; gap: 24px; }
-      .fc-top, .fc-bottom { display: none; }
+      .ac-top, .ac-bottom { display: none; }
     }
   </style>
 </head>
@@ -605,13 +652,14 @@
       <div class="hero-right">
         <div class="hero-img-bg"></div>
         <div class="hero-img-wrap">
-          <!-- Floating card top-left -->
-          <div class="float-card fc-top">
-            <span class="float-card-icon">✅</span>
-            <div>
-              <div class="float-card-label">Solo</div>
-              <div class="float-card-value">Clean Title</div>
+          <!-- Tarjeta SOLD - arriba izquierda -->
+          <div class="activity-card ac-top">
+            <div class="ac-badge sold">SOLD</div>
+            <div class="ac-info">
+              <div class="ac-title">Ford F150 Raptor 2022</div>
+              <div class="ac-sub">Subasta ganada · Los Ángeles</div>
             </div>
+            <span class="ac-dot"></span>
           </div>
           <!-- Main car image - replace src with your own photo -->
           <img
@@ -619,13 +667,14 @@
             alt="Auto importado Mexikars"
             loading="eager"
           />
-          <!-- Floating card bottom-right -->
-          <div class="float-card fc-bottom">
-            <span class="float-card-icon">🇲🇽</span>
-            <div>
-              <div class="float-card-label">Entrega en</div>
-              <div class="float-card-value">32 estados</div>
+          <!-- Tarjeta EN RUTA - abajo derecha -->
+          <div class="activity-card ac-bottom">
+            <div class="ac-badge enruta">EN RUTA</div>
+            <div class="ac-info">
+              <div class="ac-title">Contenedor #MX-4492</div>
+              <div class="ac-sub">Logística · Frontera Tijuana</div>
             </div>
+            <span class="ac-dot"></span>
           </div>
         </div>
       </div>
