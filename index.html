@@ -956,6 +956,36 @@
   </div>
 </section>
 
+<!-- MODAL VER DETALLES -->
+<div id="car-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)closeCarModal()">
+  <div style="background:white;border-radius:20px;max-width:520px;width:100%;overflow:hidden;position:relative;max-height:90vh;overflow-y:auto;">
+    <button onclick="closeCarModal()" style="position:absolute;top:16px;right:16px;background:rgba(0,0,0,.15);border:none;width:36px;height:36px;border-radius:50%;font-size:1.1rem;cursor:pointer;z-index:10;color:#333;display:flex;align-items:center;justify-content:center;">✕</button>
+    <img id="car-modal-img" src="" alt="" style="width:100%;height:220px;object-fit:cover;">
+    <div style="padding:28px;">
+      <span id="car-modal-cat" style="background:#1A4A2A;color:white;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:1px;"></span>
+      <h2 id="car-modal-nombre" style="font-family:'Manrope',sans-serif;font-size:1.6rem;font-weight:800;color:#111;margin:14px 0 4px;"></h2>
+      <p id="car-modal-año" style="color:#888;font-size:0.95rem;margin:0 0 24px;"></p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+        <div style="background:#F7F9F7;border-radius:12px;padding:16px;">
+          <p style="font-size:11px;color:#999;margin:0 0 4px;text-transform:uppercase;letter-spacing:1px;">Precio Subasta</p>
+          <p id="car-modal-subasta" style="font-size:1.4rem;font-weight:800;color:#1A4A2A;margin:0;"></p>
+        </div>
+        <div style="background:#F7F9F7;border-radius:12px;padding:16px;">
+          <p style="font-size:11px;color:#999;margin:0 0 4px;text-transform:uppercase;letter-spacing:1px;">Importado en MX</p>
+          <p id="car-modal-mx" style="font-size:1.4rem;font-weight:800;color:#111;margin:0;"></p>
+        </div>
+      </div>
+      <div style="background:#f0fdf4;border-radius:12px;padding:16px;margin-bottom:24px;">
+        <p style="color:#1A4A2A;font-size:0.9rem;margin:0;">✅ Precio incluye: compra en subasta, flete, importación, placas y entrega en tu ciudad.</p>
+      </div>
+      <a id="car-modal-wa" href="#" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:10px;background:#25D366;color:white;padding:16px;border-radius:12px;font-weight:700;font-size:1rem;text-decoration:none;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.553 4.112 1.519 5.843L0 24l6.335-1.502A11.936 11.936 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.698-.516-5.239-1.416l-.374-.222-3.884.921.979-3.785-.244-.389A9.937 9.937 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Quiero este auto
+      </a>
+    </div>
+  </div>
+</div>
+
 <!-- CATÁLOGO -->
 <section id="catalogo" style="padding:80px 0;background:#F7F9F7;">
   <div style="max-width:1200px;margin:0 auto;padding:0 24px;">
@@ -1140,6 +1170,98 @@
 
 <!-- ══════ JS ══════ -->
 <script>
+  /* ══════ CATÁLOGO ══════ */
+  const catalogData = [
+    {nombre:'Ford F-150 Raptor',año:'2020-2022',cat:'TRUCK',subasta:32000,importado:750000,img:'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=600&q=80'},
+    {nombre:'Chevrolet Silverado 1500',año:'2019-2022',cat:'TRUCK',subasta:22000,importado:550000,img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'},
+    {nombre:'RAM 1500 TRX',año:'2021-2023',cat:'TRUCK',subasta:38000,importado:860000,img:'https://images.unsplash.com/photo-1612825173281-9a193378527e?w=600&q=80'},
+    {nombre:'Tesla Model 3',año:'2020-2023',cat:'ELÉCTRICO',subasta:18000,importado:430000,img:'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=600&q=80'},
+    {nombre:'Tesla Model Y',año:'2021-2023',cat:'ELÉCTRICO',subasta:24000,importado:560000,img:'https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=600&q=80'},
+    {nombre:'Ford Mustang GT',año:'2019-2022',cat:'DEPORTIVO',subasta:20000,importado:480000,img:'https://images.unsplash.com/photo-1547744152-14d985cb937f?w=600&q=80'},
+    {nombre:'Chevrolet Camaro SS',año:'2018-2021',cat:'DEPORTIVO',subasta:18500,importado:440000,img:'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&q=80'},
+    {nombre:'BMW X5',año:'2019-2022',cat:'LUJO',subasta:26000,importado:610000,img:'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&q=80'},
+    {nombre:'Mercedes-Benz GLE',año:'2020-2023',cat:'LUJO',subasta:31000,importado:720000,img:'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&q=80'},
+    {nombre:'Toyota RAV4',año:'2020-2023',cat:'SUV',subasta:16000,importado:390000,img:'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=600&q=80'},
+    {nombre:'Honda CR-V',año:'2019-2022',cat:'SUV',subasta:13500,importado:330000,img:'https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?w=600&q=80'},
+    {nombre:'Toyota Camry',año:'2020-2023',cat:'SEDÁN',subasta:14000,importado:340000,img:'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&q=80'},
+  ];
+
+  let catFilter = 'TODOS';
+
+  function setCatFilter(f) {
+    catFilter = f;
+    document.querySelectorAll('#cat-filters button').forEach(b => {
+      const active = b.id === 'cf-' + f;
+      b.style.background = active ? '#1A4A2A' : 'white';
+      b.style.color = active ? 'white' : '#555';
+      b.style.border = active ? '2px solid #1A4A2A' : '2px solid #ddd';
+    });
+    renderCatalog();
+  }
+
+  function filterCatalog() { renderCatalog(); }
+
+  function renderCatalog() {
+    const search = (document.getElementById('cat-search').value || '').toLowerCase();
+    const budget = parseFloat(document.getElementById('cat-budget').value) || Infinity;
+    const grid = document.getElementById('catalog-grid');
+    const filtered = catalogData.filter(c => {
+      if (catFilter !== 'TODOS' && c.cat !== catFilter) return false;
+      if (c.subasta > budget) return false;
+      if (search && !c.nombre.toLowerCase().includes(search) && !c.cat.toLowerCase().includes(search)) return false;
+      return true;
+    });
+    if (!filtered.length) {
+      grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#888;padding:40px 0;">No encontramos autos con esos filtros. <a href="https://wa.me/523318041482" style="color:#1A4A2A;font-weight:700;">Escríbenos →</a></p>';
+      return;
+    }
+    grid.innerHTML = filtered.map((c, i) => `
+      <div style="background:white;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,.14)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 12px rgba(0,0,0,.08)'">
+        <div style="position:relative;overflow:hidden;height:180px;">
+          <img src="${c.img}" alt="${c.nombre}" style="width:100%;height:100%;object-fit:cover;transition:transform .4s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">
+          <span style="position:absolute;top:12px;left:12px;background:#1A4A2A;color:white;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:1px;">${c.cat}</span>
+        </div>
+        <div style="padding:20px;">
+          <h3 style="font-family:'Manrope',sans-serif;font-size:1.05rem;font-weight:800;color:#111;margin:0 0 4px;">${c.nombre}</h3>
+          <p style="color:#888;font-size:0.85rem;margin:0 0 16px;">${c.año}</p>
+          <div style="display:flex;justify-content:space-between;margin-bottom:16px;">
+            <div>
+              <p style="font-size:11px;color:#999;margin:0;text-transform:uppercase;letter-spacing:1px;">Subasta USD</p>
+              <p style="font-size:1.1rem;font-weight:800;color:#1A4A2A;margin:2px 0 0;">$${c.subasta.toLocaleString()}</p>
+            </div>
+            <div style="text-align:right;">
+              <p style="font-size:11px;color:#999;margin:0;text-transform:uppercase;letter-spacing:1px;">En México MXN</p>
+              <p style="font-size:1.1rem;font-weight:800;color:#111;margin:2px 0 0;">$${c.importado.toLocaleString()}</p>
+            </div>
+          </div>
+          <button onclick="openCarModal(${catalogData.indexOf(c)})" style="width:100%;padding:12px;background:#1A4A2A;color:white;border:none;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;transition:background .2s;" onmouseover="this.style.background='#2D6E40'" onmouseout="this.style.background='#1A4A2A'">Ver Detalles →</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  /* ══════ MODAL VER DETALLES ══════ */
+  function openCarModal(idx) {
+    const c = catalogData[idx];
+    const waMsg = encodeURIComponent(`Hola Mexikars, me interesa el ${c.nombre} ${c.año}. ¿Pueden darme más información?`);
+    document.getElementById('car-modal-img').src = c.img;
+    document.getElementById('car-modal-nombre').textContent = c.nombre;
+    document.getElementById('car-modal-año').textContent = c.año;
+    document.getElementById('car-modal-cat').textContent = c.cat;
+    document.getElementById('car-modal-subasta').textContent = '$' + c.subasta.toLocaleString() + ' USD';
+    document.getElementById('car-modal-mx').textContent = '$' + c.importado.toLocaleString() + ' MXN';
+    document.getElementById('car-modal-wa').href = 'https://wa.me/523318041482?text=' + waMsg;
+    document.getElementById('car-modal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCarModal() {
+    document.getElementById('car-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  renderCatalog();
+
   /* Mobile menu */
   const ham = document.getElementById('hamburger');
   const mob = document.getElementById('mobileMenu');
@@ -1273,89 +1395,6 @@
   }
 </script>
 <script>
-// ─── CATÁLOGO ───
-const catalogData = [
-  {nombre:'Ford F150 Raptor',año:'2018-2022',cat:'TRUCK',subasta:24000,importado:580000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/046/508/169/medium/temp1780771803.png?1780771803'},
-  {nombre:'GMC Sierra 1500',año:'2018-2022',cat:'TRUCK',subasta:10000,importado:280000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/046/087/612/medium/temp1779922050.png?1779922050'},
-  {nombre:'Chevrolet Silverado',año:'2018-2021',cat:'TRUCK',subasta:9000,importado:270000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/045/807/121/medium/temp1779300856.png?1779300856'},
-  {nombre:'Cadillac CTS-V',año:'2016-2019',cat:'LUJO',subasta:18000,importado:430000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/046/413/072/medium/temp1780590660.png?1780590660'},
-  {nombre:'Mercedes-Benz Clase E',año:'2017-2020',cat:'LUJO',subasta:14000,importado:380000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/045/880/505/medium/temp1779396580.png?1779396580'},
-  {nombre:'Chevrolet Camaro ZL1',año:'2017-2021',cat:'DEPORTIVO',subasta:24000,importado:580000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/045/155/176/medium/temp1777941572.png?1777941572'},
-  {nombre:'Dodge Challenger Hellcat',año:'2016-2021',cat:'DEPORTIVO',subasta:18000,importado:480000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/046/511/812/medium/temp1780785041.png?1780785041'},
-  {nombre:'Chevrolet Corvette Stingray',año:'2016-2019',cat:'DEPORTIVO',subasta:18000,importado:480000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/046/507/417/medium/temp1780769983.png?1780769983'},
-  {nombre:'Ford Mustang GT V8',año:'2017-2021',cat:'DEPORTIVO',subasta:8000,importado:250000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/045/658/413/medium/temp1778954226.png?1778954227'},
-  {nombre:'Chevrolet Camaro V8 SS',año:'2016-2020',cat:'DEPORTIVO',subasta:10000,importado:300000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/046/505/187/medium/temp1780764558.png?1780764558'},
-  {nombre:'Tesla Model X',año:'2018-2021',cat:'ELÉCTRICO',subasta:12000,importado:370000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/046/157/169/medium/temp1780066772.png?1780066772'},
-  {nombre:'Tesla Model Y',año:'2020-2022',cat:'ELÉCTRICO',subasta:12000,importado:370000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/046/510/265/medium/temp1780777646.png?1780777646'},
-  {nombre:'Tesla Model 3',año:'2019-2022',cat:'ELÉCTRICO',subasta:9000,importado:320000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/046/358/794/medium/temp1780507064.png?1780507064'},
-  {nombre:'Jeep Wrangler Rubicon',año:'2017-2021',cat:'SUV',subasta:11000,importado:320000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/046/306/418/medium/temp1780424261.png?1780424261'},
-  {nombre:'Jeep Wrangler Sahara',año:'2017-2021',cat:'SUV',subasta:10000,importado:300000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/045/887/229/medium/temp1779409466.png?1779409466'},
-  {nombre:'Jeep Grand Cherokee',año:'2017-2021',cat:'SUV',subasta:8000,importado:240000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/045/569/318/medium/temp1778774986.png?1778774986'},
-  {nombre:'Honda Pilot',año:'2018-2021',cat:'SUV',subasta:7000,importado:220000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/045/823/506/medium/temp1779310309.png?1779310309'},
-  {nombre:'Honda Civic EX',año:'2018-2022',cat:'SEDÁN',subasta:5000,importado:155000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/046/376/486/medium/temp1780515349.png?1780515349'},
-  {nombre:'Toyota Corolla',año:'2018-2022',cat:'SEDÁN',subasta:5000,importado:160000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/046/394/274/medium/temp1780531155.png?1780531155'},
-  {nombre:'VW Jetta',año:'2018-2022',cat:'SEDÁN',subasta:4500,importado:145000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/046/365/241/medium/temp1780509711.png?1780509711'},
-  {nombre:'Nissan Sentra',año:'2018-2022',cat:'SEDÁN',subasta:4000,importado:130000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/046/281/982/medium/temp1780413331.png?1780413331'},
-  {nombre:'Honda Accord',año:'2017-2021',cat:'SEDÁN',subasta:6000,importado:185000,img:'https://s3.amazonaws.com/BLC1/vehicle_images/images/046/385/790/medium/temp1780520714.png?1780520714'},
-];
-
-const catColors = {TRUCK:'#D97706',LUJO:'#7C3AED',DEPORTIVO:'#DC2626',ELÉCTRICO:'#0284C7',SUV:'#16A34A',SEDÁN:'#6B7280'};
-let activeCat = 'TODOS';
-
-function renderCatalog(data){
-  const grid = document.getElementById('catalog-grid');
-  if(!data.length){grid.innerHTML='<p style="text-align:center;color:#888;grid-column:1/-1;padding:40px 0;">No se encontraron resultados.</p>';return;}
-  grid.innerHTML = data.map(c=>`
-    <div style="background:white;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.07);display:flex;flex-direction:column;">
-      <div style="position:relative;height:180px;overflow:hidden;background:#f0f0f0;">
-        <img src="${c.img}" alt="${c.nombre}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
-        <span style="position:absolute;top:10px;left:10px;font-size:11px;font-weight:700;letter-spacing:1px;color:${catColors[c.cat]};background:white;padding:4px 10px;border-radius:20px;">${c.cat}</span>
-      </div>
-      <div style="padding:18px;display:flex;flex-direction:column;gap:10px;flex:1;">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <h3 style="font-size:1rem;font-weight:700;color:#111;margin:0;">${c.nombre}</h3>
-          <span style="font-size:12px;color:#999;flex-shrink:0;margin-left:8px;">${c.año}</span>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <div style="background:#F7F9F7;border-radius:10px;padding:10px 12px;">
-            <p style="font-size:10px;color:#888;margin:0 0 2px;font-weight:600;text-transform:uppercase;">Subasta (Est.)</p>
-            <p style="font-size:1rem;font-weight:700;color:#1A4A2A;margin:0;">$${c.subasta.toLocaleString()} <span style="font-size:0.75rem;font-weight:400;">USD</span></p>
-          </div>
-          <div style="background:#1A4A2A10;border-radius:10px;padding:10px 12px;">
-            <p style="font-size:10px;color:#888;margin:0 0 2px;font-weight:600;text-transform:uppercase;">Importado (Est.)</p>
-            <p style="font-size:1rem;font-weight:700;color:#1A4A2A;margin:0;">$${c.importado.toLocaleString()} <span style="font-size:0.75rem;font-weight:400;">MXN</span></p>
-          </div>
-        </div>
-        <a href="https://wa.me/523318041482?text=Hola%20Mexikars%2C%20me%20interesa%20el%20${encodeURIComponent(c.nombre)}" target="_blank" style="display:block;text-align:center;background:#1A4A2A;color:white;padding:10px;border-radius:10px;font-weight:700;font-size:0.9rem;text-decoration:none;margin-top:auto;">Cotizar este auto →</a>
-      </div>
-    </div>
-  `).join('');
-}
-
-function filterCatalog(){
-  const q = document.getElementById('cat-search').value.toLowerCase();
-  const budget = parseFloat(document.getElementById('cat-budget').value)||Infinity;
-  const result = catalogData.filter(c=>{
-    const matchCat = activeCat==='TODOS' || c.cat===activeCat;
-    const matchQ = !q || c.nombre.toLowerCase().includes(q);
-    const matchBudget = c.subasta<=budget;
-    return matchCat && matchQ && matchBudget;
-  });
-  renderCatalog(result);
-}
-
-function setCatFilter(cat){
-  activeCat=cat;
-  document.querySelectorAll('#cat-filters button').forEach(b=>{
-    const isActive = b.id==='cf-'+cat;
-    b.style.background = isActive?'#1A4A2A':'white';
-    b.style.color = isActive?'white':'#555';
-    b.style.borderColor = isActive?'#1A4A2A':'#ddd';
-  });
-  filterCatalog();
-}
-
-renderCatalog(catalogData);
 
 // ─── FAQ CON TABS ───
 const faqData = {
