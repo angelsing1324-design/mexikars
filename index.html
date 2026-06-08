@@ -557,9 +557,41 @@
     }
     @media (max-width: 640px) {
       .section { padding: 68px 0; }
-      #hero { padding: 88px 0 52px; }
-      .hero-actions { flex-direction: column; }
-      .hero-actions .btn-wa, .hero-actions .btn-outline-dark { width: 100%; justify-content: center; }
+
+      /* ── HERO MOBILE PREMIUM ── */
+      #hero {
+        padding: 0;
+        min-height: 100svh;
+        display: flex;
+        align-items: flex-end;
+        position: relative;
+        background-image:
+          linear-gradient(to bottom, rgba(5,15,8,0.55) 0%, rgba(5,15,8,0.45) 40%, rgba(5,15,8,0.92) 75%),
+          url('https://s3.amazonaws.com/BLC1/vehicle_images/images/046/502/330/original/temp1780754571.png?1780754571');
+        background-size: cover;
+        background-position: center 30%;
+      }
+      #hero .container { padding-bottom: 110px; width: 100%; }
+      .hero-right { display: none !important; }
+      .hero-grid { grid-template-columns: 1fr; gap: 0; }
+      .hero-title { color: white; font-size: clamp(36px, 9vw, 52px); }
+      .hero-title .green { color: #4ade80; display: block; min-height: 2.2em; }
+      .hero-sub { color: rgba(255,255,255,0.78); max-width: 100%; }
+      .hero-badge { background: rgba(74,222,128,0.12); border-color: rgba(74,222,128,0.25); color: #4ade80; }
+      .badge-dot { background: #4ade80; }
+
+      /* ── CTAs full width ── */
+      .hero-actions { flex-direction: column; gap: 10px; margin-bottom: 32px; }
+      .hero-actions .btn-wa { width: 100%; justify-content: center; }
+      .hero-actions .btn-outline-dark { width: 100%; justify-content: center; text-align: center; border-color: rgba(255,255,255,0.35); color: white; }
+      .hero-actions .btn-outline-dark:hover { background: rgba(255,255,255,0.1); }
+      .hero-actions a[href*="whatsapp.com/TUENLACE"] { width: 100%; justify-content: center !important; border-color: #4ade80 !important; }
+
+      /* ── Trust row ── */
+      .hero-trust { color: rgba(255,255,255,0.8); }
+      .trust-text strong { color: white; }
+
+      /* ── Otros ── */
       .footer-top { grid-template-columns: 1fr; gap: 24px; }
       .ac-top, .ac-bottom { display: none; }
     }
