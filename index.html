@@ -563,6 +563,38 @@
       .footer-top { grid-template-columns: 1fr; gap: 24px; }
       .ac-top, .ac-bottom { display: none; }
     }
+
+    /* ── Marquee Credenciales ── */
+    .marquee-section {
+      background: #1A4A2A;
+      padding: 14px 0;
+      overflow: hidden;
+    }
+    .marquee-track { width: 100%; overflow: hidden; }
+    .marquee-inner {
+      display: flex;
+      gap: 0;
+      width: max-content;
+      animation: marqueeScroll 28s linear infinite;
+    }
+    .mq-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: rgba(255,255,255,0.9);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      padding: 0 32px;
+      white-space: nowrap;
+      border-right: 1px solid rgba(255,255,255,0.15);
+    }
+    .mq-icon { font-size: 15px; }
+
+    @keyframes marqueeScroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
   </style>
 </head>
 <body>
@@ -702,6 +734,31 @@
         <div class="stat-num" data-target="4" data-suffix="-8 sem">0</div>
         <div class="stat-label">Tiempo de entrega</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ MARQUEE CREDENCIALES ══════ -->
+<section class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-inner">
+      <span class="mq-item"><span class="mq-icon">🏆</span> Master Broker Copart</span>
+      <span class="mq-item"><span class="mq-icon">🚛</span> Logística USA → MX</span>
+      <span class="mq-item"><span class="mq-icon">🔑</span> Acceso a Subastas IAAI</span>
+      <span class="mq-item"><span class="mq-icon">📋</span> Trámite Aduanal Incluido</span>
+      <span class="mq-item"><span class="mq-icon">✅</span> Solo Clean Title</span>
+      <span class="mq-item"><span class="mq-icon">🇲🇽</span> Entrega en 32 Estados</span>
+      <span class="mq-item"><span class="mq-icon">💯</span> Transparencia Total</span>
+      <span class="mq-item"><span class="mq-icon">⚡</span> 4-8 Semanas de Entrega</span>
+      <!-- Duplicado para loop infinito -->
+      <span class="mq-item"><span class="mq-icon">🏆</span> Master Broker Copart</span>
+      <span class="mq-item"><span class="mq-icon">🚛</span> Logística USA → MX</span>
+      <span class="mq-item"><span class="mq-icon">🔑</span> Acceso a Subastas IAAI</span>
+      <span class="mq-item"><span class="mq-icon">📋</span> Trámite Aduanal Incluido</span>
+      <span class="mq-item"><span class="mq-icon">✅</span> Solo Clean Title</span>
+      <span class="mq-item"><span class="mq-icon">🇲🇽</span> Entrega en 32 Estados</span>
+      <span class="mq-item"><span class="mq-icon">💯</span> Transparencia Total</span>
+      <span class="mq-item"><span class="mq-icon">⚡</span> 4-8 Semanas de Entrega</span>
     </div>
   </div>
 </section>
