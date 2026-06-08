@@ -230,11 +230,16 @@
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 48px; }
     .btn-wa {
       display: inline-flex; align-items: center; gap: 10px;
-      background: #25D366; color: #fff;
-      font-size: 16px; font-weight: 800;
-      padding: 16px 32px; border-radius: 10px;
+      background: linear-gradient(135deg, #25D366, #1aa854);
+      color: #fff; font-size: 16px; font-weight: 800;
+      padding: 16px 32px; border-radius: 14px;
       border: none; cursor: pointer;
       transition: transform .15s, box-shadow .15s;
+      position: relative; overflow: hidden;
+    }
+    .btn-wa::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 50%;
+      background: rgba(255,255,255,0.1); pointer-events: none;
     }
     .btn-wa:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(37,211,102,.4); }
     .btn-outline-dark {
@@ -267,9 +272,10 @@
     .hero-right { position: relative; z-index: 1; }
     .hero-img-wrap {
       position: relative;
-      border-radius: 24px; overflow: hidden;
+      border-radius: 24px;
       box-shadow: 0 32px 80px rgba(0,0,0,.14);
     }
+    .hero-img-wrap img { border-radius: 24px; }
     .hero-img-wrap img { width: 100%; height: 440px; object-fit: cover; object-position: center; }
     /* floating cards */
     .float-card {
@@ -347,6 +353,69 @@
       background: var(--green-light);
       z-index: -1;
     }
+
+    /* Glass cards hero */
+    .hc-card {
+      position: absolute;
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.65);
+      border-radius: 16px; padding: 10px 16px 10px 10px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.09);
+      display: flex; align-items: center; gap: 10px;
+      z-index: 20; min-width: 185px;
+    }
+    .hc-card-icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.7);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .hc-card-texts { display: flex; flex-direction: column; flex: 1; }
+    .hc-card-label { font-size: 9px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: .12em; }
+    .hc-card-value { font-size: 13px; font-weight: 900; color: #0f172a; white-space: nowrap; margin-top: 1px; }
+    .hc-card-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,.2);
+      animation: card-ping 2s infinite; flex-shrink: 0;
+    }
+    @keyframes card-ping {
+      0%,100%{ box-shadow: 0 0 0 3px rgba(34,197,94,.2); }
+      50%{ box-shadow: 0 0 0 7px rgba(34,197,94,.06); }
+    }
+    .hc-card-tl { top: 22px; left: -28px; animation: floatY 4s ease-in-out infinite; }
+    .hc-card-br { bottom: 28px; right: -24px; animation: floatY 4s ease-in-out infinite .9s; }
+
+    /* Logo scroll strip */
+    .hero-logos-strip {
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+      margin-bottom: 32px;
+    }
+    .hero-logos-inner {
+      display: flex; align-items: center; gap: 40px;
+      width: max-content; animation: logos-scroll 14s linear infinite;
+    }
+    .hero-logos-inner img {
+      height: 24px; width: auto; object-fit: contain;
+      filter: grayscale(100%); opacity: 0.35;
+      display: block; flex-shrink: 0;
+    }
+    @keyframes logos-scroll {
+      0%{ transform: translateX(0); } 100%{ transform: translateX(-50%); }
+    }
+
+    /* Premium button */
+    .btn-premium {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #0D0D0D; color: #fff;
+      font-size: 15px; font-weight: 800;
+      padding: 15px 24px; border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.08); cursor: pointer;
+      transition: all .2s; text-decoration: none;
+    }
+    .btn-premium:hover { background: #1c1c1c; border-color: rgba(250,204,21,.35); }
+    .btn-premium-icon { color: #FACC15; }
 
     /* ── STATS BAR ── */
     #stats {
@@ -817,13 +886,29 @@
           Compramos en subasta, tramitamos la importación y entregamos en tu puerta — en los
           <strong>32 estados de México.</strong> Tú solo eliges el auto.
         </p>
+        <!-- Logo strip -->
+        <div class="hero-logos-strip">
+          <div class="hero-logos-inner">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Copart_logo.svg/1200px-Copart_logo.svg.png" alt="Copart">
+            <img src="https://images.seeklogo.com/logo-png/44/2/iaa-insurance-auto-auctions-inc-logo-png_seeklogo-443594.png" alt="IAAI" style="height:36px">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/YouTube_logo_%282017%29.png" alt="YouTube" style="height:16px">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/TikTok_logo.svg/1280px-TikTok_logo.svg.png" alt="TikTok">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Copart_logo.svg/1200px-Copart_logo.svg.png" alt="Copart">
+            <img src="https://images.seeklogo.com/logo-png/44/2/iaa-insurance-auto-auctions-inc-logo-png_seeklogo-443594.png" alt="IAAI" style="height:36px">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/YouTube_logo_%282017%29.png" alt="YouTube" style="height:16px">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/TikTok_logo.svg/1280px-TikTok_logo.svg.png" alt="TikTok">
+          </div>
+        </div>
         <div class="hero-actions">
           <a href="https://wa.me/523318041482?text=Hola%2C%20quiero%20cotizar%20mi%20auto%20importado%20desde%20EE.UU." target="_blank" class="btn-wa">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.553 4.112 1.519 5.843L0 24l6.335-1.502A11.936 11.936 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.698-.516-5.239-1.416l-.374-.222-3.884.921.979-3.785-.244-.389A9.937 9.937 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
             Quiero mi auto ahora
           </a>
+          <a href="https://chat.whatsapp.com/TUENLACE" target="_blank" class="btn-premium">
+            <svg class="btn-premium-icon" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z"/><path d="M5 21h14"/></svg>
+            Grupo Premium
+          </a>
           <a href="#proceso" class="btn-outline-dark">Ver el proceso →</a>
-          <a href="https://chat.whatsapp.com/TUENLACE" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:14px 24px;border-radius:50px;border:2px solid #4ade80;color:#4ade80;font-weight:700;font-size:0.95rem;text-decoration:none;transition:all .2s;" onmouseover="this.style.background='#4ade80';this.style.color='#0a1a0a';" onmouseout="this.style.background='transparent';this.style.color='#4ade80';">⭐ Grupo Premium</a>
         </div>
         <div class="hero-trust">
           <div class="trust-avatars">
@@ -841,32 +926,34 @@
       <!-- RIGHT -->
       <div class="hero-right">
         <div class="hero-img-bg"></div>
-        <div class="hero-img-wrap">
-          <!-- Tarjeta SOLD - arriba izquierda -->
-          <div class="activity-card ac-top">
-            <div class="ac-badge sold">SOLD</div>
-            <div class="ac-info">
-              <div class="ac-title">Ford F150 Raptor 2022</div>
-              <div class="ac-sub">Subasta ganada · Los Ángeles</div>
-            </div>
-            <span class="ac-dot"></span>
+        <!-- Glass card top-left -->
+        <div class="hc-card hc-card-tl">
+          <div class="hc-card-icon" style="color:#3B82F6">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m14 13-8.381 8.38a1 1 0 0 1-3.001-3l8.384-8.381"/><path d="m16 16 6-6"/><path d="m21.5 10.5-8-8"/><path d="m8 8 6-6"/><path d="m8.5 7.5 8 8"/></svg>
           </div>
-          <!-- Main car image - replace src with your own photo -->
-          <img
-            id="hero-img"
+          <div class="hc-card-texts">
+            <div class="hc-card-label">Subastas</div>
+            <div class="hc-card-value">Copart &amp; IAAI</div>
+          </div>
+          <span class="hc-card-dot"></span>
+        </div>
+        <!-- Glass card bottom-right -->
+        <div class="hc-card hc-card-br">
+          <div class="hc-card-icon" style="color:#1A4A2A">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <div class="hc-card-texts">
+            <div class="hc-card-label">Logística</div>
+            <div class="hc-card-value">Frontera Tijuana</div>
+          </div>
+          <span class="hc-card-dot"></span>
+        </div>
+        <!-- Main image -->
+        <div class="hero-img-wrap">
+          <img id="hero-img"
             src="https://s3.amazonaws.com/BLC1/vehicle_images/images/046/502/330/original/temp1780754571.png?1780754571"
             alt="Auto importado Mexikars"
-            loading="eager"
-          />
-          <!-- Tarjeta EN RUTA - abajo derecha -->
-          <div class="activity-card ac-bottom">
-            <div class="ac-badge enruta">EN RUTA</div>
-            <div class="ac-info">
-              <div class="ac-title">Contenedor #MX-4492</div>
-              <div class="ac-sub">Logística · Frontera Tijuana</div>
-            </div>
-            <span class="ac-dot"></span>
-          </div>
+            loading="eager"/>
         </div>
       </div>
     </div>
