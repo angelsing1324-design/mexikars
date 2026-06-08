@@ -6,12 +6,13 @@
   <title>Mexikars — Importa tu auto desde EE.UU. a México</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     /* ── RESET ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; background: #fff; color: #111; overflow-x: hidden; }
+    h1, h2, h3, .hero-title, .section-title { font-family: 'Manrope', sans-serif; }
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; display: block; }
 
@@ -877,16 +878,16 @@
 </section>
 
 <!-- FAQ -->
-<section id="faq" style="padding:80px 0;background:white;">
+<section id="faq" style="padding:80px 0;background:#0f1f14;">
   <div style="max-width:800px;margin:0 auto;padding:0 24px;">
-    <div style="text-align:center;margin-bottom:48px;">
-      <span style="font-size:12px;font-weight:700;letter-spacing:2px;color:#1A4A2A;text-transform:uppercase;">PREGUNTAS FRECUENTES</span>
-      <h2 style="font-size:clamp(2rem,4vw,3rem);font-weight:800;margin:12px 0;color:#111;">Todo lo que necesitas <span style="color:#1A4A2A;">saber</span></h2>
-      <p style="color:#555;font-size:1.1rem;">Resolvemos tus dudas antes de que las tengas.</p>
+    <div style="text-align:center;margin-bottom:56px;">
+      <span style="font-size:11px;font-weight:700;letter-spacing:3px;color:#4ade80;text-transform:uppercase;">PREGUNTAS FRECUENTES</span>
+      <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;margin:16px 0 12px;color:white;">Todo lo que necesitas saber</h2>
+      <p style="color:#9ca3af;font-size:1.05rem;">Resolvemos tus dudas antes de que las tengas.</p>
     </div>
     <div id="faq-list"></div>
-    <div style="text-align:center;margin-top:40px;">
-      <p style="color:#555;">¿Tienes otra pregunta? <a href="https://wa.me/523318041482?text=Hola%20Mexikars%2C%20tengo%20una%20pregunta" style="color:#1A4A2A;font-weight:700;">Habla con un asesor →</a></p>
+    <div style="text-align:center;margin-top:48px;">
+      <a href="https://wa.me/523318041482?text=Hola%20Mexikars%2C%20tengo%20una%20pregunta" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:white;padding:14px 28px;border-radius:50px;font-weight:700;font-size:1rem;text-decoration:none;">💬 Hablar con un asesor</a>
     </div>
   </div>
 </section>
@@ -1242,25 +1243,25 @@ renderCatalog(catalogData);
 // ─── FAQ ───
 const faqData = [
   {q:'¿Cómo es el proceso de compra paso a paso?',a:'1. Cotización: Nos describes el auto que quieres y tu presupuesto. 2. Búsqueda: Encontramos las mejores opciones en OpenLane, Manheim y ACV. 3. Depósito: Realizas un depósito de seguridad para reservar. 4. Subasta: Compramos el auto en tu nombre. 5. Trámite: Gestionamos la importación y documentación ante el SAT. 6. Entrega: Tu auto llega a cualquiera de los 32 estados.'},
-  {q:'¿Puedo pagar el auto en efectivo?',a:'El pago del auto va directo a la subasta mediante transferencia bancaria (Wire Transfer). Mexikars no recibe ese dinero — tú pagas directamente a la subasta para total transparencia. Los honorarios de servicio sí se pagan a nosotros.'},
-  {q:'¿Cuánto tiempo toma el proceso completo?',a:'En promedio entre 6 y 10 semanas desde que ganamos la subasta hasta que el auto está en tu puerta. Depende del estado de entrega, tiempo de reparaciones si las hay, y el proceso aduanal. Te mantenemos informado por WhatsApp en cada paso.'},
-  {q:'¿Qué significa "Run and Drive"?',a:'Significa que al momento de la inspección en la subasta, el vehículo arrancó y se movió por su propia fuerza. No garantiza que esté apto para carretera ni que no tenga fallas ocultas — por eso revisamos el reporte Carfax y el historial antes de cualquier oferta.'},
-  {q:'¿Qué es un título Salvage vs Clean Title?',a:'Clean Title: sin historial de pérdida total — ideal para importación nacional. Salvage Title: el auto fue declarado pérdida total por una aseguradora (por choque, granizo, inundación, etc.). Ambos se pueden importar, pero tienen procesos distintos. Te asesoramos según tu caso.'},
-  {q:'¿Entregan en todo México?',a:'Sí, tenemos cobertura en los 32 estados. Coordinamos el transporte desde la frontera hasta tu domicilio. Recibes fotos y videos del proceso en tiempo real.'},
-  {q:'¿Qué pasa si no ganamos la subasta?',a:'Nada. Tu depósito queda intacto y lo usamos para buscar el siguiente lote disponible, o te lo reembolsamos al 100% si decides no continuar.'},
-  {q:'¿Cuánto cobra Mexikars por el servicio?',a:'Nuestros honorarios dependen del tipo y precio del vehículo. Te entregamos una cotización transparente y desglosada antes de iniciar — sin costos ocultos. Escríbenos por WhatsApp para tu cotización gratis.'},
-  {q:'¿Puedo elegir el auto que quiero o ustedes lo eligen?',a:'Tú eliges. Te mostramos las opciones disponibles en subasta que coincidan con tu búsqueda y presupuesto, y decides cuál quieres. También puedes pedirnos un auto específico y lo buscamos activamente.'},
-  {q:'¿Los autos vienen con garantía?',a:'Los autos de subasta se venden "AS IS" (como están), sin garantía de fábrica. Sin embargo, verificamos el historial Carfax, garantizamos título limpio (Clean Title) en importaciones nacionales y te acompañamos si surge cualquier problema con la documentación.'},
+  {q:'¿Puedo pagar el auto en efectivo?',a:'El pago del auto va directo a la subasta mediante transferencia bancaria. Mexikars no recibe ese dinero — tú pagas directamente a la subasta para total transparencia. Los honorarios de servicio sí se pagan a nosotros.'},
+  {q:'¿Cuánto tiempo toma el proceso completo?',a:'En promedio entre 6 y 10 semanas desde que ganamos la subasta hasta que el auto está en tu puerta. Te mantenemos informado por WhatsApp en cada paso.'},
+  {q:'¿Qué significa "Run and Drive"?',a:'Significa que al momento de la inspección el vehículo arrancó y se movió por su propia fuerza. No garantiza que esté apto para carretera — por eso revisamos el reporte Carfax y el historial antes de cualquier oferta.'},
+  {q:'¿Qué es un título Salvage vs Clean Title?',a:'Clean Title: sin historial de pérdida total, ideal para importación nacional. Salvage Title: declarado pérdida total por aseguradora (choque, granizo, inundación). Ambos se pueden importar con procesos distintos. Te asesoramos según tu caso.'},
+  {q:'¿Entregan en todo México?',a:'Sí, cobertura en los 32 estados. Coordinamos el transporte desde la frontera hasta tu domicilio con fotos y videos en tiempo real.'},
+  {q:'¿Qué pasa si no ganamos la subasta?',a:'Tu depósito queda intacto. Lo usamos para buscar el siguiente lote o te lo reembolsamos al 100%.'},
+  {q:'¿Cuánto cobra Mexikars por el servicio?',a:'Depende del tipo y precio del vehículo. Te entregamos una cotización transparente y desglosada antes de iniciar — sin costos ocultos.'},
+  {q:'¿Puedo elegir el auto que quiero?',a:'Tú eliges. Te mostramos las opciones disponibles que coincidan con tu búsqueda y presupuesto. También puedes pedirnos un auto específico y lo buscamos activamente.'},
+  {q:'¿Los autos vienen con garantía?',a:'Los autos de subasta se venden "AS IS". Sin embargo, verificamos Carfax, garantizamos Clean Title en importaciones nacionales y te acompañamos si surge cualquier problema con la documentación.'},
 ];
 
 const faqList = document.getElementById('faq-list');
 faqList.innerHTML = faqData.map((f,i)=>`
-  <div style="border-bottom:1px solid #eee;">
-    <button onclick="toggleFaq(${i})" style="width:100%;text-align:left;background:none;border:none;padding:20px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;">
-      <span style="font-size:1rem;font-weight:600;color:#111;">${f.q}</span>
-      <span id="faq-icon-${i}" style="font-size:1.4rem;color:#1A4A2A;flex-shrink:0;transition:transform 0.2s;">+</span>
+  <div style="border-bottom:1px solid rgba(255,255,255,0.08);">
+    <button onclick="toggleFaq(${i})" style="width:100%;text-align:left;background:none;border:none;padding:22px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;">
+      <span style="font-family:'Manrope',sans-serif;font-size:1rem;font-weight:600;color:white;line-height:1.4;">${f.q}</span>
+      <span id="faq-icon-${i}" style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#4ade80;font-size:1.1rem;font-weight:300;transition:transform 0.2s;">+</span>
     </button>
-    <div id="faq-body-${i}" style="display:none;padding:0 0 20px;color:#555;line-height:1.7;font-size:0.97rem;">${f.a}</div>
+    <div id="faq-body-${i}" style="display:none;padding:0 40px 22px 0;color:#9ca3af;line-height:1.75;font-size:0.95rem;">${f.a}</div>
   </div>
 `).join('');
 
