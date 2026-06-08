@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mexikars — Importa tu auto desde EE.UU. a México</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: #111; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ── TOKENS ── */
+    :root {
+      --green:       #1A4A2A;
+      --green-mid:   #235E36;
+      --green-light: #e8f4ec;
+      --red:         #CC0000;
+      --black:       #0D0D0D;
+      --gray:        #6B7280;
+      --gray-light:  #F3F4F6;
+      --border:      #E5E7EB;
+      --white:       #FFFFFF;
+      --max:         1200px;
+      --radius:      14px;
+    }
+
+    /* ── UTILITIES ── */
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 28px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: transform .3s;
+    }
+    .nav-inner {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    /* Logo SVG inline */
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo-icon { width: 42px; height: 42px; }
+    .nav-logo-text { display: flex; flex-direction: column; line-height: 1; }
+    .nav-logo-name {
+      font-size: 20px; font-weight: 900; letter-spacing: -.03em;
+      color: var(--black);
+    }
+    .nav-logo-name span { color: var(--green); }
+    .nav-logo-tag { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--gray); font-weight: 600; margin-top: 2px; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--gray); transition: color .2s; }
+    .nav-links a:hover { color: var(--black); }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .btn-wa-nav {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #25D366; color: #fff;
+      font-size: 13px; font-weight: 700;
+      padding: 10px 20px; border-radius: 8px;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .btn-wa-nav:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,211,102,.35); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 6px; background: none; border: none;
+    }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--black); border-radius: 2px; transition: .25s; }
+    .mobile-menu {
+      display: none; flex-direction: column;
+      background: #fff; border-top: 1px solid var(--border);
+      max-height: 0; overflow: hidden; transition: max-height .35s ease;
+    }
+    .mobile-menu.open { max-height: 380px; }
+    .mobile-menu a { padding: 15px 24px; font-size: 15px; font-weight: 500; color: var(--gray); border-bottom: 1px solid var(--border); }
+    .mobile-menu a:hover { color: var(--black); }
+    .mobile-menu .mm-btns { padding: 16px 24px; display: flex; flex-direction: column; gap: 10px; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 100px 0 60px;
+      background: #F7F9F7;
+      position: relative; overflow: hidden;
+    }
+    /* subtle green blob top-right */
+    #hero::before {
+      content: '';
+      position: absolute; top: -120px; right: -120px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(26,74,42,.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    /* LEFT */
+    .hero-left { position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-light);
+      border: 1px solid rgba(26,74,42,.2);
+      border-radius: 100px;
+      padding: 6px 16px 6px 8px;
+      font-size: 12px; font-weight: 700;
+      color: var(--green); letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .badge-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green); animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.5)} }
+    .hero-title {
+      font-size: clamp(38px, 5vw, 68px);
+      font-weight: 900; line-height: 1.04;
+      letter-spacing: -.03em;
+      color: var(--black);
+      margin-bottom: 24px;
+    }
+    .hero-title .green { color: var(--green); }
+    .hero-sub {
+      font-size: clamp(16px, 1.5vw, 18px);
+      color: var(--gray); line-height: 1.7;
+      max-width: 480px; margin-bottom: 40px;
+    }
+    .hero-sub strong { color: var(--black); font-weight: 600; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 48px; }
+    .btn-wa {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #25D366; color: #fff;
+      font-size: 16px; font-weight: 800;
+      padding: 16px 32px; border-radius: 10px;
+      border: none; cursor: pointer;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .btn-wa:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(37,211,102,.4); }
+    .btn-outline-dark {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--black);
+      font-size: 15px; font-weight: 700;
+      padding: 15px 28px; border-radius: 10px;
+      border: 1.5px solid var(--border); cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-outline-dark:hover { border-color: var(--black); background: #f5f5f5; }
+    .hero-trust { display: flex; align-items: center; gap: 14px; }
+    .trust-avatars { display: flex; }
+    .trust-avatars span {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 2px solid #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800;
+      margin-left: -9px; color: #fff;
+    }
+    .trust-avatars span:first-child { margin-left: 0; }
+    .av1 { background: linear-gradient(135deg,#1A4A2A,#2D6E40); }
+    .av2 { background: linear-gradient(135deg,#2D6E40,#48A165); }
+    .av3 { background: linear-gradient(135deg,#CC0000,#E53030); }
+    .av4 { background: linear-gradient(135deg,#222,#555); }
+    .trust-text { font-size: 13px; color: var(--gray); line-height: 1.5; }
+    .trust-text strong { color: var(--black); font-weight: 700; display: block; }
+
+    /* RIGHT */
+    .hero-right { position: relative; z-index: 1; }
+    .hero-img-wrap {
+      position: relative;
+      border-radius: 24px; overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,.14);
+    }
+    .hero-img-wrap img { width: 100%; height: 440px; object-fit: cover; object-position: center; }
+    /* floating cards */
+    .float-card {
+      position: absolute;
+      background: #fff;
+      border-radius: 12px;
+      padding: 12px 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.12);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .float-card-icon { font-size: 22px; }
+    .float-card-label { font-size: 11px; color: var(--gray); text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+    .float-card-value { font-size: 18px; font-weight: 900; color: var(--black); line-height: 1.1; }
+    .fc-top {
+      top: 20px; left: -28px;
+      animation: floatY 4s ease-in-out infinite;
+    }
+    .fc-bottom {
+      bottom: 28px; right: -20px;
+      animation: floatY 4s ease-in-out infinite .8s;
+    }
+    @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    /* green accent bar behind image */
+    .hero-img-bg {
+      position: absolute; bottom: -20px; right: -20px;
+      width: 100%; height: 80%;
+      border-radius: 24px;
+      background: var(--green-light);
+      z-index: -1;
+    }
+
+    /* ── STATS BAR ── */
+    #stats {
+      background: var(--green);
+      padding: 52px 0;
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+    }
+    .stat-item {
+      text-align: center; padding: 8px 20px;
+      border-right: 1px solid rgba(255,255,255,.15);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-size: clamp(32px,4vw,48px); font-weight: 900;
+      color: #fff; line-height: 1; letter-spacing: -.02em;
+    }
+    .stat-label { font-size: 13px; color: rgba(255,255,255,.65); margin-top: 6px; font-weight: 500; }
+
+    /* ── SECCIÓN GENÉRICA ── */
+    .section { padding: 96px 0; }
+    .section-label {
+      display: inline-block; font-size: 11px; font-weight: 800;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(28px,3.5vw,44px); font-weight: 900;
+      letter-spacing: -.025em; line-height: 1.12;
+      color: var(--black); margin-bottom: 14px;
+    }
+    .section-sub {
+      font-size: 17px; color: var(--gray); line-height: 1.7;
+      max-width: 540px;
+    }
+    .section-header { margin-bottom: 60px; }
+    .section-header.center { text-align: center; }
+    .section-header.center .section-sub { margin: 0 auto; }
+
+    /* ── PROCESO (CÓMO FUNCIONA) ── */
+    #proceso { background: #fff; }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 28px;
+      position: relative;
+    }
+    /* connector line */
+    .steps-grid::before {
+      content: '';
+      position: absolute; top: 44px;
+      left: calc(16.66% + 14px); right: calc(16.66% + 14px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--green) 0%, rgba(26,74,42,.15) 100%);
+    }
+    .step-card {
+      background: var(--gray-light);
+      border-radius: var(--radius);
+      padding: 40px 28px 32px;
+      text-align: center;
+      position: relative; z-index: 1;
+      border: 1.5px solid transparent;
+      transition: border-color .25s, transform .25s, box-shadow .25s, background .25s;
+    }
+    .step-card:hover {
+      border-color: var(--green);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(26,74,42,.1);
+      background: #fff;
+    }
+    .step-num {
+      position: absolute; top: -16px; left: 50%; transform: translateX(-50%);
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--green); color: #fff;
+      font-size: 13px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(26,74,42,.35);
+    }
+    .step-icon { font-size: 44px; margin-bottom: 18px; display: block; }
+    .step-title { font-size: 18px; font-weight: 800; color: var(--black); margin-bottom: 10px; }
+    .step-desc { font-size: 14px; color: var(--gray); line-height: 1.75; }
+
+    /* ── POR QUÉ NOSOTROS ── */
+    #porque { background: var(--gray-light); }
+    .why-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+    }
+    .why-img-wrap {
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,.12);
+      position: relative;
+    }
+    .why-img-wrap img { width: 100%; height: 500px; object-fit: cover; }
+    .why-img-badge {
+      position: absolute; bottom: 24px; left: 24px;
+      background: var(--green); color: #fff;
+      border-radius: 12px; padding: 14px 20px;
+      font-size: 13px; font-weight: 700; line-height: 1.4;
+    }
+    .why-img-badge strong { font-size: 22px; display: block; font-weight: 900; }
+    .why-right {}
+    .why-cards { display: flex; flex-direction: column; gap: 16px; }
+    .why-card {
+      background: #fff; border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 22px 22px 18px;
+      display: flex; gap: 16px;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+    }
+    .why-card:hover {
+      border-color: var(--green);
+      transform: translateX(4px);
+      box-shadow: 0 8px 24px rgba(26,74,42,.08);
+    }
+    .why-icon {
+      width: 46px; height: 46px; min-width: 46px;
+      border-radius: 10px; background: var(--green-light);
+      border: 1px solid rgba(26,74,42,.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .why-text h3 { font-size: 15px; font-weight: 800; color: var(--black); margin-bottom: 5px; }
+    .why-text p { font-size: 13px; color: var(--gray); line-height: 1.65; }
+
+    /* ── TESTIMONIOS ── */
+    #testimonios { background: #fff; }
+    .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .testi-card {
+      background: var(--gray-light); border-radius: var(--radius);
+      padding: 28px; border: 1.5px solid transparent;
+      transition: border-color .2s, transform .2s;
+    }
+    .testi-card:hover { border-color: var(--green); transform: translateY(-4px); }
+    .testi-stars { color: #F59E0B; font-size: 14px; margin-bottom: 14px; letter-spacing: 2px; }
+    .testi-text { font-size: 14px; color: #374151; line-height: 1.75; margin-bottom: 20px; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 800; color: #fff;
+    }
+    .testi-name { font-size: 14px; font-weight: 700; color: var(--black); }
+    .testi-city { font-size: 12px; color: var(--gray); }
+
+    /* ── CTA FINAL ── */
+    #cta {
+      background: var(--green);
+      padding: 100px 0;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    #cta::before {
+      content: '';
+      position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 400px;
+      background: radial-gradient(ellipse, rgba(255,255,255,.07), transparent 70%);
+      pointer-events: none;
+    }
+    .cta-eyebrow { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.6); font-weight: 700; margin-bottom: 18px; }
+    .cta-title {
+      font-size: clamp(28px,4vw,52px); font-weight: 900;
+      color: #fff; line-height: 1.1; letter-spacing: -.025em;
+      max-width: 680px; margin: 0 auto 40px;
+    }
+    .cta-title span { opacity: .7; }
+    .btn-wa-lg {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: #fff; color: var(--green);
+      font-size: 17px; font-weight: 800;
+      padding: 18px 40px; border-radius: 12px;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .btn-wa-lg:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,.2); }
+    .cta-sub { font-size: 13px; color: rgba(255,255,255,.55); margin-top: 16px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      padding: 52px 0 28px;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 40px; margin-bottom: 44px;
+    }
+    .footer-brand-name {
+      font-size: 20px; font-weight: 900; color: #fff;
+      letter-spacing: -.02em; margin-bottom: 8px;
+    }
+    .footer-brand-name span { color: var(--green-mid) }
+    .footer-tagline { font-size: 13px; color: rgba(255,255,255,.4); line-height: 1.65; margin-bottom: 20px; }
+    .footer-social { display: flex; gap: 10px; }
+    .soc-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
+      display: flex; align-items: center; justify-content: center; font-size: 15px;
+      transition: background .2s, border-color .2s;
+    }
+    .soc-icon:hover { background: rgba(26,74,42,.4); border-color: rgba(26,74,42,.6); }
+    .footer-col h4 {
+      font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.4); margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { font-size: 14px; color: rgba(255,255,255,.55); transition: color .2s; }
+    .footer-col a:hover { color: #fff; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding-top: 24px; display: flex; flex-wrap: wrap;
+      justify-content: space-between; gap: 8px;
+    }
+    .footer-bottom p { font-size: 12px; color: rgba(255,255,255,.25); }
+
+    /* ── FLOATING WA BUTTON ── */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 200;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: #25D366;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(37,211,102,.45);
+      transition: transform .2s;
+    }
+    .wa-float:hover { transform: scale(1.1); }
+    .wa-float svg { width: 28px; height: 28px; fill: #fff; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .hero-grid { gap: 36px; }
+    }
+    @media (max-width: 900px) {
+      .nav-links, .nav-right { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item:nth-child(3) { border-top: 1px solid rgba(255,255,255,.15); border-right: 1px solid rgba(255,255,255,.15); }
+      .stat-item:nth-child(4) { border-top: 1px solid rgba(255,255,255,.15); border-right: none; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .steps-grid::before { display: none; }
+      .why-layout { grid-template-columns: 1fr; }
+      .why-img-wrap { display: none; }
+      .testi-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .section { padding: 68px 0; }
+      #hero { padding: 88px 0 52px; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn-wa, .hero-actions .btn-outline-dark { width: 100%; justify-content: center; }
+      .footer-top { grid-template-columns: 1fr; gap: 24px; }
+      .fc-top, .fc-bottom { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════ NAVBAR ══════ -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <!-- Logo -->
+      <a href="#" class="nav-logo">
+        <svg class="nav-logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- M shape in green -->
+          <rect x="8" y="18" width="14" height="60" rx="3" fill="#1A4A2A"/>
+          <rect x="8" y="18" width="40" height="14" rx="3" fill="#1A4A2A" transform="rotate(30 8 18)" style="transform-origin: 8px 18px;"/>
+          <!-- simplified M -->
+          <polygon points="8,78 8,18 22,18 50,52 78,18 92,18 92,78 78,78 78,42 50,72 22,42 22,78" fill="#1A4A2A"/>
+          <!-- road/arrow overlay in dark -->
+          <path d="M50 72 L78 38 L85 45 L92 18 L65 28 L72 35 L50 60 Z" fill="#222" opacity=".85"/>
+          <!-- red accent tip -->
+          <polygon points="85,18 92,18 92,28 86,22" fill="#CC0000"/>
+        </svg>
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">Mexi<span>kars</span></span>
+          <span class="nav-logo-tag">USA → México</span>
+        </div>
+      </a>
+      <!-- Links -->
+      <ul class="nav-links">
+        <li><a href="#proceso">Cómo funciona</a></li>
+        <li><a href="#porque">Nosotros</a></li>
+        <li><a href="#testimonios">Testimonios</a></li>
+        <li><a href="#cta">Contacto</a></li>
+      </ul>
+      <!-- CTA -->
+      <div class="nav-right">
+        <a href="https://wa.me/523318041482?text=Hola%2C%20quiero%20información%20sobre%20importar%20un%20auto%20desde%20EE.UU." target="_blank" class="btn-wa-nav">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.553 4.112 1.519 5.843L0 24l6.335-1.502A11.936 11.936 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.698-.516-5.239-1.416l-.374-.222-3.884.921.979-3.785-.244-.389A9.937 9.937 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#proceso" class="mm-link">Cómo funciona</a>
+    <a href="#porque" class="mm-link">Nosotros</a>
+    <a href="#testimonios" class="mm-link">Testimonios</a>
+    <div class="mm-btns">
+      <a href="https://wa.me/523318041482" target="_blank" class="btn-wa btn-full mm-link" style="text-align:center;justify-content:center;">💬 Hablar por WhatsApp</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <!-- LEFT -->
+      <div class="hero-left">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          Broker de Subastas USA → México
+        </div>
+        <h1 class="hero-title">
+          Tu auto de<br>
+          <span class="green">EE.UU.</span><br>
+          puesto en México.
+        </h1>
+        <p class="hero-sub">
+          Compramos en subasta, tramitamos la importación y entregamos en tu puerta — en los
+          <strong>32 estados de México.</strong> Tú solo eliges el auto.
+        </p>
+        <div class="hero-actions">
+          <a href="https://wa.me/523318041482?text=Hola%2C%20quiero%20cotizar%20mi%20auto%20importado%20desde%20EE.UU." target="_blank" class="btn-wa">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.553 4.112 1.519 5.843L0 24l6.335-1.502A11.936 11.936 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.698-.516-5.239-1.416l-.374-.222-3.884.921.979-3.785-.244-.389A9.937 9.937 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Cotizar gratis ahora
+          </a>
+          <a href="#proceso" class="btn-outline-dark">Ver cómo funciona →</a>
+        </div>
+        <div class="hero-trust">
+          <div class="trust-avatars">
+            <span class="av1">MR</span>
+            <span class="av2">JL</span>
+            <span class="av3">AG</span>
+            <span class="av4">CF</span>
+          </div>
+          <div class="trust-text">
+            <strong>+500 clientes satisfechos</strong>
+            ya tienen su auto importado
+          </div>
+        </div>
+      </div>
+      <!-- RIGHT -->
+      <div class="hero-right">
+        <div class="hero-img-bg"></div>
+        <div class="hero-img-wrap">
+          <!-- Floating card top-left -->
+          <div class="float-card fc-top">
+            <span class="float-card-icon">✅</span>
+            <div>
+              <div class="float-card-label">Solo</div>
+              <div class="float-card-value">Clean Title</div>
+            </div>
+          </div>
+          <!-- Main car image - replace src with your own photo -->
+          <img
+            src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1200&q=85"
+            alt="Auto importado Mexikars"
+            loading="eager"
+          />
+          <!-- Floating card bottom-right -->
+          <div class="float-card fc-bottom">
+            <span class="float-card-icon">🇲🇽</span>
+            <div>
+              <div class="float-card-label">Entrega en</div>
+              <div class="float-card-value">32 estados</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ STATS ══════ -->
+<section id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-num" data-target="500" data-suffix="+">0</div>
+        <div class="stat-label">Autos importados</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="480" data-suffix="+">0</div>
+        <div class="stat-label">Clientes satisfechos</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="32">0</div>
+        <div class="stat-label">Estados con cobertura</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="4" data-suffix="-8 sem">0</div>
+        <div class="stat-label">Tiempo de entrega</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CÓMO FUNCIONA ══════ -->
+<section id="proceso" class="section">
+  <div class="container">
+    <div class="section-header center">
+      <div class="section-label">El proceso</div>
+      <h2 class="section-title">Así de fácil es importar<br>tu auto con Mexikars</h2>
+      <p class="section-sub">De la subasta en EE.UU. a tu garage en México — nosotros manejamos todo.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <span class="step-num">1</span>
+        <span class="step-icon">🔍</span>
+        <h3 class="step-title">Elegimos tu auto en subasta</h3>
+        <p class="step-desc">Buscamos en Openlane y Manheim el auto que quieres, al mejor precio. Verificamos historial Carfax y garantizamos título limpio (Clean Title).</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">2</span>
+        <span class="step-icon">📋</span>
+        <h3 class="step-title">Tramitamos todo lo legal</h3>
+        <p class="step-desc">Pagamos, trasladamos a la frontera y hacemos el pedimento ante el SAT. Todo legal, todo documentado. Recibes actualizaciones por WhatsApp en cada paso.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">3</span>
+        <span class="step-icon">🏠</span>
+        <h3 class="step-title">Tu auto llega a tu puerta</h3>
+        <p class="step-desc">Entregamos en cualquiera de los 32 estados. Recibes fotos y videos en tiempo real hasta que el auto esté frente a tu casa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ POR QUÉ NOSOTROS ══════ -->
+<section id="porque" class="section">
+  <div class="container">
+    <div class="why-layout">
+      <!-- Image side -->
+      <div class="why-img-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=900&q=85"
+          alt="Mexikars - Por qué elegirnos"
+        />
+        <div class="why-img-badge">
+          <strong>100%</strong>
+          Transparente
+        </div>
+      </div>
+      <!-- Content side -->
+      <div class="why-right">
+        <div class="section-label">Por qué nosotros</div>
+        <h2 class="section-title" style="margin-bottom:32px">Lo que nos hace<br>diferentes</h2>
+        <div class="why-cards">
+          <div class="why-card">
+            <div class="why-icon">🗺️</div>
+            <div class="why-text">
+              <h3>Cobertura en los 32 estados</h3>
+              <p>CDMX, Guadalajara, Monterrey, Mérida, Tijuana — donde estés, llegamos. El costo de flete siempre va incluido en tu cotización desde el inicio.</p>
+            </div>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">✅</div>
+            <div class="why-text">
+              <h3>Solo autos Clean Title</h3>
+              <p>Cero Salvage, cero reconstruidos. Únicamente vehículos con título limpio para proteger tu inversión desde el primer día.</p>
+            </div>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">👁️</div>
+            <div class="why-text">
+              <h3>Proceso 100% transparente</h3>
+              <p>Fotos, videos y actualizaciones en cada etapa: compra, tránsito, aduana y entrega. Sin sorpresas, sin costos ocultos.</p>
+            </div>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">💬</div>
+            <div class="why-text">
+              <h3>Asesor personal por WhatsApp</h3>
+              <p>Un asesor real — no un bot — te acompaña desde que eliges tu auto hasta que lo tienes en tus manos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TESTIMONIOS ══════ -->
+<section id="testimonios" class="section">
+  <div class="container">
+    <div class="section-header center">
+      <div class="section-label">Testimonios</div>
+      <h2 class="section-title">Más de 500 clientes<br>ya tienen su auto</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Importé una RAV4 2022 desde cero y fue increíble. Me mandaban fotos y videos de todo el proceso. En 6 semanas la tuve en mi garage en Guadalajara."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#1A4A2A,#2D6E40)">MR</div>
+          <div>
+            <div class="testi-name">Miguel R.</div>
+            <div class="testi-city">Guadalajara, Jalisco</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Pensé que iba a ser un dolor de cabeza pero ellos hicieron todo. El Mustang GT llegó perfecto, con todo el papeleo en regla. 100% recomendados."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#CC0000,#E53030)">JL</div>
+          <div>
+            <div class="testi-name">Jorge L.</div>
+            <div class="testi-city">Monterrey, NL</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Compré un Tesla Model 3 con ellos y ahorré casi $120,000 MXN vs comprarlo aquí. El proceso fue súper ordenado y profesional. Ya voy por el segundo."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#1A4A2A,#48A165)">AC</div>
+          <div>
+            <div class="testi-name">Andrea C.</div>
+            <div class="testi-city">Ciudad de México</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CTA FINAL ══════ -->
+<section id="cta">
+  <div class="container">
+    <p class="cta-eyebrow">¿Listo para ahorrar?</p>
+    <h2 class="cta-title">
+      Tu próximo auto está en<br>una subasta en EE.UU.<br>
+      <span>— nosotros lo traemos por ti.</span>
+    </h2>
+    <a
+      href="https://wa.me/523318041482?text=Hola%2C%20me%20interesa%20importar%20un%20auto%20desde%20EE.UU.%20%C2%BFme%20pueden%20asesorar%3F"
+      target="_blank" rel="noopener"
+      class="btn-wa-lg"
+    >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.553 4.112 1.519 5.843L0 24l6.335-1.502A11.936 11.936 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.698-.516-5.239-1.416l-.374-.222-3.884.921.979-3.785-.244-.389A9.937 9.937 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Hablar con un asesor ahora
+    </a>
+    <p class="cta-sub">Sin compromiso · Respuesta en minutos · 100% gratis</p>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Mexi<span>kars</span></div>
+        <p class="footer-tagline">Importamos autos de EE.UU. a México con total transparencia, proceso 100% legal y entrega en los 32 estados.</p>
+        <div class="footer-social">
+          <a href="#" class="soc-icon" title="TikTok">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="rgba(255,255,255,.7)"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.5a8.16 8.16 0 0 0 4.78 1.53V7.57a4.85 4.85 0 0 1-1.01-.88z"/></svg>
+          </a>
+          <a href="#" class="soc-icon" title="Instagram">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="rgba(255,255,255,.7)" stroke="none"/></svg>
+          </a>
+          <a href="#" class="soc-icon" title="Facebook">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="rgba(255,255,255,.7)"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" class="soc-icon" title="YouTube">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="rgba(255,255,255,.7)"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75,15.02 15.5,12 9.75,8.98" fill="#0D0D0D"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="#proceso">Cómo funciona</a></li>
+          <li><a href="#porque">Por qué nosotros</a></li>
+          <li><a href="#testimonios">Testimonios</a></li>
+          <li><a href="https://wa.me/523318041482" target="_blank">Cotización gratis</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="#">Nosotros</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Preguntas frecuentes</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Aviso de privacidad</a></li>
+          <li><a href="#">Términos y condiciones</a></li>
+          <li><a href="#">Política de cookies</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Mexikars. Todos los derechos reservados.</p>
+      <p>Solo autos Clean Title · Cobertura 32 estados · Proceso 100% legal</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════ FLOATING WA ══════ -->
+<a href="https://wa.me/523318041482?text=Hola%2C%20me%20interesa%20importar%20un%20auto%20desde%20EE.UU." target="_blank" rel="noopener" class="wa-float" title="Hablar por WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.553 4.112 1.519 5.843L0 24l6.335-1.502A11.936 11.936 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.698-.516-5.239-1.416l-.374-.222-3.884.921.979-3.785-.244-.389A9.937 9.937 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+  </svg>
+</a>
+
+<!-- ══════ JS ══════ -->
+<script>
+  /* Mobile menu */
+  const ham = document.getElementById('hamburger');
+  const mob = document.getElementById('mobileMenu');
+  ham.addEventListener('click', () => mob.classList.toggle('open'));
+  document.querySelectorAll('.mm-link').forEach(a => a.addEventListener('click', () => mob.classList.remove('open')));
+
+  /* Nav hide on scroll */
+  let last = 0;
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    const cur = window.scrollY;
+    navbar.style.transform = (cur > last && cur > 80) ? 'translateY(-100%)' : 'translateY(0)';
+    last = cur;
+  }, { passive: true });
+
+  /* Counter animation */
+  function animCounter(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const suffix = el.dataset.suffix || '';
+    const dur = 1800, frames = Math.round(dur / 16);
+    let f = 0;
+    const t = setInterval(() => {
+      f++;
+      const p = 1 - Math.pow(1 - f/frames, 3);
+      el.textContent = Math.round(target * p) + suffix;
+      if (f >= frames) { el.textContent = target + suffix; clearInterval(t); }
+    }, 16);
+  }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { animCounter(e.target); io.unobserve(e.target); } });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-target]').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
