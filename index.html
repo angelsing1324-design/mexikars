@@ -231,6 +231,28 @@
     }
     .stat-label { font-size: 13px; color: rgba(255,255,255,.65); margin-top: 6px; font-weight: 500; }
 
+    /* ── PARTNERS ── */
+    .partners-bar {
+      background: #fff; padding: 52px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .partners-label {
+      text-align: center;
+      font-size: 12px; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--gray); margin-bottom: 32px;
+    }
+    .partners-grid {
+      display: flex; justify-content: center; align-items: center;
+      flex-wrap: wrap; gap: 48px;
+    }
+    .partner-logo {
+      opacity: .7; transition: opacity .25s;
+      width: 140px; display: flex; justify-content: center;
+    }
+    .partner-logo:hover { opacity: 1; }
+    .partner-logo svg { width: 100%; height: auto; }
+
     /* ── SECCIÓN GENÉRICA ── */
     .section { padding: 96px 0; }
     .section-label {
@@ -612,6 +634,39 @@
       <div class="stat-item">
         <div class="stat-num" data-target="4" data-suffix="-8 sem">0</div>
         <div class="stat-label">Tiempo de entrega</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SUBASTAS ALIADAS ══════ -->
+<section id="partners" class="partners-bar">
+  <div class="container">
+    <p class="partners-label">Compramos en las principales subastas de EE.UU.</p>
+    <div class="partners-grid">
+      <div class="partner-logo">
+        <svg viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="28" font-family="Inter,sans-serif" font-weight="900" font-size="22" fill="#1A1A1A" letter-spacing="-0.02em">MANHEIM</text>
+          <rect x="0" y="32" width="50" height="3" rx="1.5" fill="#E31837"/>
+        </svg>
+      </div>
+      <div class="partner-logo">
+        <svg viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="28" font-family="Inter,sans-serif" font-weight="900" font-size="22" fill="#1A1A1A" letter-spacing="-0.02em">openlane</text>
+          <rect x="0" y="32" width="50" height="3" rx="1.5" fill="#0066CC"/>
+        </svg>
+      </div>
+      <div class="partner-logo">
+        <svg viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="28" font-family="Inter,sans-serif" font-weight="900" font-size="22" fill="#1A1A1A" letter-spacing="-0.02em">ADESA</text>
+          <rect x="0" y="32" width="50" height="3" rx="1.5" fill="#00A859"/>
+        </svg>
+      </div>
+      <div class="partner-logo">
+        <svg viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="28" font-family="Inter,sans-serif" font-weight="900" font-size="22" fill="#1A1A1A" letter-spacing="-0.02em">ACV</text>
+          <text x="0" y="32" font-family="Inter,sans-serif" font-weight="600" font-size="8" fill="#6B7280" letter-spacing="0.1em">AUCTIONS</text>
+        </svg>
       </div>
     </div>
   </div>
