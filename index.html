@@ -1474,8 +1474,17 @@
   /* Mobile menu */
   const ham = document.getElementById('hamburger');
   const mob = document.getElementById('mobileMenu');
-  ham.addEventListener('click', () => { mob.classList.toggle('open'); ham.classList.toggle('is-open'); });
-  document.querySelectorAll('.mm-item').forEach(a => a.addEventListener('click', () => { mob.classList.remove('open'); ham.classList.remove('is-open'); }));
+  function closeMenu() {
+    mob.classList.remove('open');
+    ham.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+  ham.addEventListener('click', () => {
+    const isOpen = mob.classList.toggle('open');
+    ham.classList.toggle('is-open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mm-item').forEach(a => a.addEventListener('click', closeMenu));
 
   /* Nav hide on scroll */
   let last = 0;
