@@ -232,26 +232,11 @@
     .stat-label { font-size: 13px; color: rgba(255,255,255,.65); margin-top: 6px; font-weight: 500; }
 
     /* ── PARTNERS ── */
-    .partners-bar {
-      background: #fff; padding: 52px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .partners-label {
-      text-align: center;
-      font-size: 12px; font-weight: 600;
-      letter-spacing: .08em; text-transform: uppercase;
-      color: var(--gray); margin-bottom: 32px;
-    }
-    .partners-grid {
-      display: flex; justify-content: center; align-items: center;
-      flex-wrap: wrap; gap: 48px;
-    }
-    .partner-logo {
-      opacity: .7; transition: opacity .25s;
-      width: 140px; display: flex; justify-content: center;
-    }
-    .partner-logo:hover { opacity: 1; }
-    .partner-logo svg { width: 100%; height: auto; }
+    .partners-bar { padding: 32px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: #fff; }
+    .partners-label { text-align: center; font-size: 12px; font-weight: 600; color: var(--gray); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 24px; }
+    .partners-logos { display: flex; align-items: center; justify-content: center; gap: 56px; flex-wrap: wrap; }
+    .partner-logo-img { height: 36px; width: auto; object-fit: contain; filter: grayscale(100%); opacity: 0.6; transition: filter .2s, opacity .2s; }
+    .partner-logo-img:hover { filter: grayscale(0%); opacity: 1; }
 
     /* ── SECCIÓN GENÉRICA ── */
     .section { padding: 96px 0; }
@@ -480,6 +465,7 @@
       .why-img-wrap { display: block; }
       .why-img-wrap img { height: 260px; }
       .testi-grid { grid-template-columns: 1fr; }
+      .partners-logos { gap: 32px; } .partner-logo-img { height: 28px; }
     }
     @media (max-width: 640px) {
       .section { padding: 68px 0; }
@@ -643,31 +629,10 @@
 <section id="partners" class="partners-bar">
   <div class="container">
     <p class="partners-label">Compramos en las principales subastas de EE.UU.</p>
-    <div class="partners-grid">
-      <div class="partner-logo">
-        <svg viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <text x="0" y="28" font-family="Inter,sans-serif" font-weight="900" font-size="22" fill="#1A1A1A" letter-spacing="-0.02em">MANHEIM</text>
-          <rect x="0" y="32" width="50" height="3" rx="1.5" fill="#E31837"/>
-        </svg>
-      </div>
-      <div class="partner-logo">
-        <svg viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <text x="0" y="28" font-family="Inter,sans-serif" font-weight="900" font-size="22" fill="#1A1A1A" letter-spacing="-0.02em">openlane</text>
-          <rect x="0" y="32" width="50" height="3" rx="1.5" fill="#0066CC"/>
-        </svg>
-      </div>
-      <div class="partner-logo">
-        <svg viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <text x="0" y="28" font-family="Inter,sans-serif" font-weight="900" font-size="22" fill="#1A1A1A" letter-spacing="-0.02em">ADESA</text>
-          <rect x="0" y="32" width="50" height="3" rx="1.5" fill="#00A859"/>
-        </svg>
-      </div>
-      <div class="partner-logo">
-        <svg viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <text x="0" y="28" font-family="Inter,sans-serif" font-weight="900" font-size="22" fill="#1A1A1A" letter-spacing="-0.02em">ACV</text>
-          <text x="0" y="32" font-family="Inter,sans-serif" font-weight="600" font-size="8" fill="#6B7280" letter-spacing="0.1em">AUCTIONS</text>
-        </svg>
-      </div>
+    <div class="partners-logos">
+      <img src="https://logo.clearbit.com/openlane.com" alt="OpenLane" class="partner-logo-img" />
+      <img src="https://logo.clearbit.com/manheim.com" alt="Manheim" class="partner-logo-img" />
+      <img src="https://logo.clearbit.com/acvauctions.com" alt="ACV Auctions" class="partner-logo-img" />
     </div>
   </div>
 </section>
