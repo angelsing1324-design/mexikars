@@ -985,13 +985,23 @@
 
 <!-- FAQ -->
 <section id="faq" style="padding:80px 0;background:#0f1f14;">
-  <div style="max-width:800px;margin:0 auto;padding:0 24px;">
-    <div style="text-align:center;margin-bottom:56px;">
+  <div style="max-width:860px;margin:0 auto;padding:0 24px;">
+    <div style="text-align:center;margin-bottom:48px;">
       <span style="font-size:11px;font-weight:700;letter-spacing:3px;color:#4ade80;text-transform:uppercase;">PREGUNTAS FRECUENTES</span>
       <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;margin:16px 0 12px;color:white;">Todo lo que necesitas saber</h2>
       <p style="color:#9ca3af;font-size:1.05rem;">Resolvemos tus dudas antes de que las tengas.</p>
     </div>
+
+    <!-- Tabs -->
+    <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:36px;" id="faq-tabs">
+      <button onclick="setFaqTab('proceso',this)" class="faq-tab active" style="padding:10px 22px;border-radius:50px;border:none;background:#1A4A2A;color:white;font-weight:700;font-size:0.9rem;cursor:pointer;transition:all .2s;">🔄 Proceso</button>
+      <button onclick="setFaqTab('costos',this)" class="faq-tab" style="padding:10px 22px;border-radius:50px;border:2px solid #374151;background:transparent;color:#9ca3af;font-weight:700;font-size:0.9rem;cursor:pointer;transition:all .2s;">💰 Costos</button>
+      <button onclick="setFaqTab('legal',this)" class="faq-tab" style="padding:10px 22px;border-radius:50px;border:2px solid #374151;background:transparent;color:#9ca3af;font-weight:700;font-size:0.9rem;cursor:pointer;transition:all .2s;">📋 Legal</button>
+      <button onclick="setFaqTab('logistica',this)" class="faq-tab" style="padding:10px 22px;border-radius:50px;border:2px solid #374151;background:transparent;color:#9ca3af;font-weight:700;font-size:0.9rem;cursor:pointer;transition:all .2s;">🚛 Logística</button>
+    </div>
+
     <div id="faq-list"></div>
+
     <div style="text-align:center;margin-top:48px;">
       <a href="https://wa.me/523318041482?text=Hola%20Mexikars%2C%20tengo%20una%20pregunta" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:white;padding:14px 28px;border-radius:50px;font-weight:700;font-size:1rem;text-decoration:none;">💬 Hablar con un asesor</a>
     </div>
@@ -1346,38 +1356,82 @@ function setCatFilter(cat){
 
 renderCatalog(catalogData);
 
-// ─── FAQ ───
-const faqData = [
-  {q:'¿Cómo es el proceso de compra paso a paso?',a:'1. Cotización: Nos describes el auto que quieres y tu presupuesto. 2. Búsqueda: Encontramos las mejores opciones en OpenLane, Manheim y ACV. 3. Depósito: Realizas un depósito de seguridad para reservar. 4. Subasta: Compramos el auto en tu nombre. 5. Trámite: Gestionamos la importación y documentación ante el SAT. 6. Entrega: Tu auto llega a cualquiera de los 32 estados.'},
-  {q:'¿Puedo pagar el auto en efectivo?',a:'El pago del auto va directo a la subasta mediante transferencia bancaria. Mexikars no recibe ese dinero — tú pagas directamente a la subasta para total transparencia. Los honorarios de servicio sí se pagan a nosotros.'},
-  {q:'¿Cuánto tiempo toma el proceso completo?',a:'En promedio entre 6 y 10 semanas desde que ganamos la subasta hasta que el auto está en tu puerta. Te mantenemos informado por WhatsApp en cada paso.'},
-  {q:'¿Qué significa "Run and Drive"?',a:'Significa que al momento de la inspección el vehículo arrancó y se movió por su propia fuerza. No garantiza que esté apto para carretera — por eso revisamos el reporte Carfax y el historial antes de cualquier oferta.'},
-  {q:'¿Qué es un título Salvage vs Clean Title?',a:'Clean Title: sin historial de pérdida total, ideal para importación nacional. Salvage Title: declarado pérdida total por aseguradora (choque, granizo, inundación). Ambos se pueden importar con procesos distintos. Te asesoramos según tu caso.'},
-  {q:'¿Entregan en todo México?',a:'Sí, cobertura en los 32 estados. Coordinamos el transporte desde la frontera hasta tu domicilio con fotos y videos en tiempo real.'},
-  {q:'¿Qué pasa si no ganamos la subasta?',a:'Tu depósito queda intacto. Lo usamos para buscar el siguiente lote o te lo reembolsamos al 100%.'},
-  {q:'¿Cuánto cobra Mexikars por el servicio?',a:'Depende del tipo y precio del vehículo. Te entregamos una cotización transparente y desglosada antes de iniciar — sin costos ocultos.'},
-  {q:'¿Puedo elegir el auto que quiero?',a:'Tú eliges. Te mostramos las opciones disponibles que coincidan con tu búsqueda y presupuesto. También puedes pedirnos un auto específico y lo buscamos activamente.'},
-  {q:'¿Los autos vienen con garantía?',a:'Los autos de subasta se venden "AS IS". Sin embargo, verificamos Carfax, garantizamos Clean Title en importaciones nacionales y te acompañamos si surge cualquier problema con la documentación.'},
-];
+// ─── FAQ CON TABS ───
+const faqData = {
+  proceso: [
+    { q: '¿Cómo funciona el proceso de compra?', a: 'Tú nos dices qué auto quieres, nosotros lo buscamos y compramos en subasta en EE.UU. Luego gestionamos toda la importación y te lo entregamos en México.' },
+    { q: '¿Cuánto tiempo tarda todo el proceso?', a: 'Entre 6 y 10 semanas desde que elegimos el auto hasta que lo tienes en tu puerta, dependiendo del estado donde vives.' },
+    { q: '¿Puedo elegir cualquier auto?', a: 'Sí, cualquier marca y modelo disponible en subastas de EE.UU. como Copart o IAAI. Te asesoramos para encontrar la mejor opción.' },
+    { q: '¿Qué pasa si el auto llega dañado?', a: 'Antes de enviarlo hacemos una inspección y te mandamos fotos. Si hay daños de transporte, los gestionamos con el seguro.' },
+  ],
+  costos: [
+    { q: '¿Cuánto cuesta el servicio de Mexikars?', a: 'Nuestros honorarios están incluidos en el costo total. Usa nuestra calculadora para ver el estimado completo de tu auto.' },
+    { q: '¿Qué incluye el precio final?', a: 'Precio de subasta + reparaciones estimadas + flete + aduana + pedimento + logística terrestre hasta tu ciudad.' },
+    { q: '¿Debo pagar algo por adelantado?', a: 'Sí, se requiere un anticipo para apartar el servicio y cubrir los costos de subasta. El resto se paga antes del envío.' },
+    { q: '¿Puedo financiar mi auto importado?', a: 'Actualmente el proceso es de pago directo, pero podemos orientarte con opciones de financiamiento personal en México.' },
+  ],
+  legal: [
+    { q: '¿El auto queda a mi nombre?', a: 'Sí, 100%. Nosotros tramitamos el pedimento y toda la documentación para que el auto quede legalmente a tu nombre en México.' },
+    { q: '¿Los autos son legales en México?', a: 'Absolutamente. Todos los vehículos pasan por el proceso oficial de importación con su pedimento correspondiente.' },
+    { q: '¿Puedo importar cualquier año de auto?', a: 'Depende de la normativa vigente. Generalmente autos de 8 años o más tienen restricciones. Te asesoramos según el año.' },
+    { q: '¿Tienen alguna certificación?', a: 'Somos brokers certificados de Copart con experiencia en importación a los 32 estados de México.' },
+  ],
+  logistica: [
+    { q: '¿Entregan en todo México?', a: 'Sí, hacemos entregas en los 32 estados. El costo de logística varía según tu ubicación.' },
+    { q: '¿Cómo se transporta el auto?', a: 'Por tierra desde la frontera (Tijuana, Nuevo Laredo o Laredo) hasta tu ciudad en vehículos especializados.' },
+    { q: '¿El auto viene asegurado durante el transporte?', a: 'Sí, el vehículo está cubierto durante todo el trayecto desde EE.UU. hasta tu entrega.' },
+    { q: '¿Puedo rastrear mi auto durante el proceso?', a: 'Sí, te mantenemos informado en cada etapa con fotos, documentos y actualizaciones por WhatsApp.' },
+  ]
+};
 
-const faqList = document.getElementById('faq-list');
-faqList.innerHTML = faqData.map((f,i)=>`
-  <div style="border-bottom:1px solid rgba(255,255,255,0.08);">
-    <button onclick="toggleFaq(${i})" style="width:100%;text-align:left;background:none;border:none;padding:22px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;">
-      <span style="font-family:'Manrope',sans-serif;font-size:1rem;font-weight:600;color:white;line-height:1.4;">${f.q}</span>
-      <span id="faq-icon-${i}" style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#4ade80;font-size:1.1rem;font-weight:300;transition:transform 0.2s;">+</span>
-    </button>
-    <div id="faq-body-${i}" style="display:none;padding:0 40px 22px 0;color:#9ca3af;line-height:1.75;font-size:0.95rem;">${f.a}</div>
-  </div>
-`).join('');
+let currentFaqTab = 'proceso';
 
-function toggleFaq(i){
-  const body = document.getElementById('faq-body-'+i);
-  const icon = document.getElementById('faq-icon-'+i);
-  const open = body.style.display==='block';
-  body.style.display = open?'none':'block';
-  icon.textContent = open?'+':'−';
+function setFaqTab(tab, btn) {
+  currentFaqTab = tab;
+  document.querySelectorAll('.faq-tab').forEach(b => {
+    b.style.background = 'transparent';
+    b.style.color = '#9ca3af';
+    b.style.border = '2px solid #374151';
+  });
+  btn.style.background = '#1A4A2A';
+  btn.style.color = 'white';
+  btn.style.border = 'none';
+  renderFAQ();
 }
+
+function renderFAQ() {
+  const list = document.getElementById('faq-list');
+  if (!list) return;
+  list.innerHTML = '';
+  faqData[currentFaqTab].forEach((item, i) => {
+    const div = document.createElement('div');
+    div.style.cssText = 'border-bottom:1px solid #1f2f1f;';
+    div.innerHTML = `
+      <button onclick="toggleFaq(${i})" style="width:100%;text-align:left;padding:20px 0;background:none;border:none;color:white;font-size:1rem;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;">
+        <span>${item.q}</span>
+        <span id="faq-icon-${i}" style="font-size:1.2rem;flex-shrink:0;transition:transform .3s;">+</span>
+      </button>
+      <div id="faq-ans-${i}" style="max-height:0;overflow:hidden;transition:max-height .35s ease;color:#9ca3af;font-size:0.97rem;line-height:1.7;">
+        <p style="padding-bottom:20px;margin:0;">${item.a}</p>
+      </div>`;
+    list.appendChild(div);
+  });
+}
+
+function toggleFaq(i) {
+  const ans = document.getElementById('faq-ans-' + i);
+  const icon = document.getElementById('faq-icon-' + i);
+  const isOpen = ans.style.maxHeight !== '0px' && ans.style.maxHeight !== '';
+  // Close all
+  document.querySelectorAll('[id^="faq-ans-"]').forEach(el => { el.style.maxHeight = '0px'; });
+  document.querySelectorAll('[id^="faq-icon-"]').forEach(el => { el.textContent = '+'; });
+  if (!isOpen) {
+    ans.style.maxHeight = ans.scrollHeight + 'px';
+    icon.textContent = '−';
+  }
+}
+
+renderFAQ();
 </script>
 </body>
 </html>
