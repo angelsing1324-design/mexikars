@@ -558,67 +558,30 @@
     @media (max-width: 640px) {
       .section { padding: 68px 0; }
 
-      /* ── HERO MOBILE ── */
-      #hero {
-        padding: 90px 0 40px;
-        background: #0b1e10;
-        min-height: auto !important;
-        display: block !important;
-      }
+      /* Hero mobile */
+      #hero { padding: 88px 0 52px; background: #0b1e10; }
       .hero-grid { grid-template-columns: 1fr; gap: 0; }
-
-      /* Imagen arriba, texto abajo — igual que HC Broker */
-      .hero-right {
-        display: block !important;
-        order: -1;
-        margin: 0 0 28px 0;
-      }
-      .hero-img-wrap {
-        border-radius: 16px;
-        overflow: hidden;
-      }
-      .hero-img-wrap img { height: 200px; object-position: center 20%; }
+      .hero-right { order: -1; margin-bottom: 24px; }
+      .hero-img-wrap img { height: 220px; border-radius: 14px; }
       .hero-img-bg { display: none; }
+      .ac-top, .ac-bottom { display: none; }
 
-      /* Texto en blanco sobre fondo oscuro */
-      .hero-title { color: white; font-size: clamp(32px, 8vw, 44px); }
+      /* Texto blanco */
+      .hero-title { color: #fff; font-size: clamp(30px, 8vw, 42px); }
       .hero-title .green { color: #4ade80; display: block; min-height: 2.2em; }
-      .hero-sub { color: rgba(255,255,255,0.75); max-width: 100%; font-size: 15px; }
-      .hero-badge {
-        background: rgba(74,222,128,0.12);
-        border-color: rgba(74,222,128,0.25);
-        color: #4ade80;
-      }
+      .hero-sub { color: rgba(255,255,255,0.75); font-size: 15px; }
+      .hero-badge { background: rgba(74,222,128,0.12); border-color: rgba(74,222,128,0.25); color: #4ade80; }
       .badge-dot { background: #4ade80; }
-      .trust-text { color: rgba(255,255,255,0.75); }
-      .trust-text strong { color: white; }
+      .trust-text { color: rgba(255,255,255,0.7); }
+      .trust-text strong { color: #fff; }
 
       /* CTAs full width */
-      .hero-actions {
-        flex-direction: column;
-        gap: 10px;
-        margin-bottom: 28px;
-      }
-      .hero-actions .btn-wa {
-        width: 100%;
-        justify-content: center;
-      }
-      .hero-actions .btn-outline-dark {
-        width: 100%;
-        justify-content: center;
-        text-align: center;
-        border-color: rgba(255,255,255,0.3);
-        color: white;
-      }
-      .hero-actions a[href*="whatsapp.com/TUENLACE"] {
-        width: 100% !important;
-        justify-content: center !important;
-      }
+      .hero-actions { flex-direction: column; gap: 10px; margin-bottom: 28px; }
+      .hero-actions > * { width: 100% !important; justify-content: center !important; text-align: center; }
+      .hero-actions .btn-outline-dark { border-color: rgba(255,255,255,0.3); color: #fff; }
 
       /* Resto */
       .footer-top { grid-template-columns: 1fr; gap: 24px; }
-      .ac-top { left: 12px; top: 12px; font-size: 11px; padding: 8px 10px; }
-      .ac-bottom { right: 12px; bottom: 12px; font-size: 11px; padding: 8px 10px; }
     }
 
     /* ── Marquee Credenciales ── */
