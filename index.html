@@ -718,6 +718,7 @@
           </div>
           <!-- Main car image - replace src with your own photo -->
           <img
+            id="hero-img"
             src="https://s3.amazonaws.com/BLC1/vehicle_images/images/046/502/330/original/temp1780754571.png?1780754571"
             alt="Auto importado Mexikars"
             loading="eager"
@@ -1338,6 +1339,19 @@
   }
   toggleBottomNav();
   window.addEventListener('resize', toggleBottomNav);
+
+  // Rotación aleatoria de imagen en el hero
+  (function() {
+    const heroImgs = [
+      {src:'https://s3.amazonaws.com/BLC1/vehicle_images/images/046/502/330/original/temp1780754571.png?1780754571', alt:'Chevrolet Corvette importado'},
+      {src:'https://s3.amazonaws.com/BLC1/vehicle_images/images/046/508/169/medium/temp1780771803.png?1780771803', alt:'Ford F150 Raptor importado'},
+      {src:'https://s3.amazonaws.com/BLC1/vehicle_images/images/046/306/418/medium/temp1780424261.png?1780424261', alt:'Jeep Wrangler Rubicon importado'},
+      {src:'https://s3.amazonaws.com/BLC1/vehicle_images/images/045/880/505/medium/temp1779396580.png?1779396580', alt:'Mercedes-Benz Clase E importado'}
+    ];
+    const pick = heroImgs[Math.floor(Math.random() * heroImgs.length)];
+    const img = document.getElementById('hero-img');
+    if (img) { img.src = pick.src; img.alt = pick.alt; }
+  })();
 
   /* Highlight active section en bottom nav */
   const bnLinks = document.querySelectorAll('#bottom-nav a');
