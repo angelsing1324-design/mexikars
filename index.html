@@ -132,6 +132,8 @@
       margin-bottom: 24px;
     }
     .hero-title .green { color: var(--green); }
+    .typewriter-cursor { animation: blink 1s step-end infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
     .hero-sub {
       font-size: clamp(16px, 1.5vw, 18px);
       color: var(--gray); line-height: 1.7;
@@ -542,8 +544,7 @@
         </div>
         <h1 class="hero-title">
           Tu auto de<br>
-          <span class="green">EE.UU.</span><br>
-          puesto en México.
+          <span class="green"><span id="typewriter-text"></span><span class="typewriter-cursor">|</span></span>
         </h1>
         <p class="hero-sub">
           Compramos en subasta, tramitamos la importación y entregamos en tu puerta — en los
@@ -885,6 +886,41 @@
     entries.forEach(e => { if (e.isIntersecting) { animCounter(e.target); io.unobserve(e.target); } });
   }, { threshold: 0.5 });
   document.querySelectorAll('[data-target]').forEach(el => io.observe(el));
+
+  /* Typewriter effect */
+  const phrases = [
+    "EE.UU. puesto en México.",
+    "tus sueños hecho realidad.",
+    "lujo al mejor precio.",
+    "subasta directo a tu puerta."
+  ];
+  let phraseIdx = 0, charIdx = 0, isDeleting = false;
+  const twEl = document.getElementById('typewriter-text');
+  const TYPE_SPEED = 80, DEL_SPEED = 40, PAUSE = 1800;
+
+  function type() {
+    const current = phrases[phraseIdx];
+    if (!isDeleting) {
+      twEl.textContent = current.substring(0, charIdx + 1);
+      charIdx++;
+      if (charIdx === current.length) {
+        setTimeout(() => { isDeleting = true; type(); }, PAUSE);
+        return;
+      }
+      setTimeout(type, TYPE_SPEED);
+    } else {
+      twEl.textContent = current.substring(0, charIdx - 1);
+      charIdx--;
+      if (charIdx === 0) {
+        isDeleting = false;
+        phraseIdx = (phraseIdx + 1) % phrases.length;
+        setTimeout(type, TYPE_SPEED);
+        return;
+      }
+      setTimeout(type, DEL_SPEED);
+    }
+  }
+  type();
 </script>
 </body>
 </html>
